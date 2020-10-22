@@ -1,12 +1,13 @@
 import React from 'react';
-import './App.css';
+import ContextState from './utility-components/ContextState';
 
-function App() {
+const App = () => {
   return (
     <div>
-      Hello! Welcome to our CS2102 project.
+      React
+      <ContextState />
     </div>
   );
-}
+};
 
 export default App;
