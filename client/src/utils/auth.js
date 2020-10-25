@@ -1,18 +1,17 @@
 import history from './history';
+import loginService from '../services/loginService';
 
 export default class Auth {
   headerConfig = null;
 
   login = async (credentials) => {
     try {
-      const userAndToken = {user: 'test', token: 'token123'};
-      console.log(userAndToken)
-      // const userAndToken = await loginService.login(credentials);
+      const token = await loginService.login(credentials);
       window.localStorage.setItem(
-        'user_and_token',
-        JSON.stringify(userAndToken)
+        'userToken',
+        JSON.stringify(token)
       );
-      this._setHeaderConfig(userAndToken.token);
+      this._setHeaderConfig(token);
       setTimeout(() => {
         history.replace('/authcheck');
       }, 200);
@@ -22,7 +21,7 @@ export default class Auth {
   };
 
   logout = () => {
-    localStorage.removeItem('user_and_token');
+    localStorage.removeItem('userToken');
     this._setHeaderConfig(null)
     setTimeout(() => {
       history.replace('/authcheck');
@@ -30,7 +29,7 @@ export default class Auth {
   };
 
   isAuthenticated = () => {
-    return Boolean(localStorage.getItem('user_and_token'));
+    return Boolean(localStorage.getItem('userToken'));
   };
 
   _setHeaderConfig = (token) => {

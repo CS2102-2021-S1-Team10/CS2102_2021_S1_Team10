@@ -9,6 +9,7 @@ import Header from './Header';
 import HooksDemo from './HooksDemo';
 import HooksForm from './HooksForm';
 import PrivateComponent from './PrivateComponent';
+import Login from './Login';
 
 const PrivateRoute = ({ component: Component, auth }) => (
   <Route
@@ -29,11 +30,10 @@ const Routes = () => {
     <div>
       <Router history={history}>
         <Header />
-        <br />
-        <br />
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
             <Route path="/hooksform" component={HooksForm} />
             <Route path="/hooksdemo" component={HooksDemo} />
             <Route path="/authcheck" component={AuthCheck} />

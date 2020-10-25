@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import Context from '../utils/context';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -44,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Login = ({ login }) => {
+const Login = (_props) => {
   const classes = useStyles();
-	const context = useContext();
+	const context = useContext(Context);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -54,9 +55,12 @@ const Login = ({ login }) => {
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const login = (e) => {
-    e.preventDefault();
-    const credentials = { username, password };
+  const login = (event) => {
+    event.preventDefault();
+    const credentials = { 
+      emailAddr: username, 
+      pcspass: password 
+    };
     context.authObj.login(credentials);
     setUsername('');
     setPassword('');
