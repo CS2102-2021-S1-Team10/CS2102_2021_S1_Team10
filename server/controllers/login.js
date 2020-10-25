@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const pool = require('../db');
 
-const TOKEN_PRIVATE_KEY = 'Q94Lyg\U{;<!PMCw';
+const TOKEN_PRIVATE_KEY = 'Q94LygU{;<!PMCw';
 
 loginRouter.post('/', async (req, resp) => {
   const body = req.body;
@@ -17,7 +17,6 @@ loginRouter.post('/', async (req, resp) => {
     return resp.status(401).json({ error: 'Invalid username or password' });
   } else {
     const pcsUser = resultRows[0];
-    console.log(body.pcspass, pcsUser.pcspasshash);
     const passwordIsCorrect = await bcrypt.compare(body.pcspass, pcsUser.pcspasshash);
     if (!passwordIsCorrect) return resp.status(401).json({ error: 'Invalid username or password' });
   }
