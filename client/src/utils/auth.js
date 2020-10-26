@@ -5,24 +5,18 @@ export default class Auth {
   headerConfig = null;
 
   login = async (credentials) => {
-    try {
-      const token = await loginService.login(credentials);
-      window.localStorage.setItem(
-        'userToken',
-        JSON.stringify(token)
-      );
-      this._setHeaderConfig(token);
-      setTimeout(() => {
-        history.replace('/authcheck');
-      }, 200);
-    } catch (exception) {
-      console.error(exception.response.data.error);
-    }
+    const token = await loginService.login(credentials);
+    // if login fails, the below lines are not executed
+    window.localStorage.setItem('userToken', JSON.stringify(token));
+    this._setHeaderConfig(token);
+    setTimeout(() => {
+      history.replace('/authcheck');
+    }, 200);
   };
 
   logout = () => {
     localStorage.removeItem('userToken');
-    this._setHeaderConfig(null)
+    this._setHeaderConfig(null);
     setTimeout(() => {
       history.replace('/authcheck');
     }, 200);

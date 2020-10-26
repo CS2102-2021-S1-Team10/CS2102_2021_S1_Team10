@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import PetsIcon from '@material-ui/icons/Pets';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import createAccountService from '../services/createAccountService';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,13 +20,13 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     backgroundImage:
-      'url(https://image.freepik.com/free-vector/faceless-happy-woman-walking-with-dog-park_74855-7312.jpg)',
+      'url(https://image.freepik.com/free-vector/flat-design-people-with-different-pets-set_23-2148397528.jpg)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light'
         ? theme.palette.grey[50]
         : theme.palette.grey[900],
-    backgroundSize: 'cover',
+    backgroundSize: 'fit',
     backgroundPosition: 'center'
   },
   paper: {
@@ -47,38 +48,48 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Login = (_props) => {
+const SignUp = (_props) => {
   const classes = useStyles();
   const context = useContext(Context);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const login = async (event) => {
+  const signUpNewAccount = async (event) => {
     event.preventDefault();
     const credentials = {
       emailAddr: username,
       pcspass: password
     };
     try {
-      await context.authObj.login(credentials);
+      await createAccountService.createNewAccount(credentials);
       setUsername('');
       setPassword('');
+      setSuccessMessage(
+        'Account was successfully created, you will be logged in shortly'
+      );
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 3500);
     } catch (exception) {
       setErrorMessage(exception.response.data.error);
       setTimeout(() => {
         setErrorMessage(null);
       }, 3500);
-    }
+		}
+		await context.authObj.login(credentials);
+
   };
 
   return (
     <div>
-      <Notification message={errorMessage} type='error' />
+      <Notification message={errorMessage} type="error" />
+      <Notification message={successMessage} type="success" />
       <Grid container className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -88,9 +99,13 @@ const Login = (_props) => {
               <PetsIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Pet Care Service
+              Sign up for new account
             </Typography>
-            <form className={classes.form} noValidate onSubmit={login}>
+            <form
+              className={classes.form}
+              noValidate
+              onSubmit={signUpNewAccount}
+            >
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -123,11 +138,11 @@ const Login = (_props) => {
                 color="primary"
                 className={classes.submit}
               >
-                Sign In
+                Create Account
               </Button>
             </form>
-            <div>
-              New user? <Link to="/signup">Sign up</Link>
+						<div>
+              Existing user? <Link to="/login">Log in</Link>
             </div>
           </div>
         </Grid>
@@ -136,4 +151,4 @@ const Login = (_props) => {
   );
 };
 
-export default Login;
+export default SignUp;

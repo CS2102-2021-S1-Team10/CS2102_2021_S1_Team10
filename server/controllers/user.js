@@ -11,7 +11,12 @@ usersRouter.post('/', async (req, resp, next) => {
 	const values = [emailAddr, passwordHash];
 	const query = `INSERT INTO PCSUser(emailAddr, pcspassHash) Values ($1, $2)`;
 
-	await pool.query(query, values);
+	
+  try {
+    await pool.query(query, values);
+  } catch (exception) {
+    return resp.status(500).json({ error: 'Email address already connected to an existing account'});
+  }
 	resp.status(204).end();
 });
 

@@ -11,7 +11,7 @@ const AuthCheck = () => {
       history.replace('/');
     } else {
       context.handleUserLogout();
-      history.replace('/');
+      history.replace('/login');
     }
   }, [context]);
 

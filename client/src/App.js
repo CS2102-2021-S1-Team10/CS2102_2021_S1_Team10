@@ -2,12 +2,7 @@ import React from 'react';
 import ContextState from './utility-components/ContextState';
 
 const App = () => {
-  return (
-    <div>
-      React
-      <ContextState />
-    </div>
-  );
+  return <ContextState />;
 };
 
 export default App;

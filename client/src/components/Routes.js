@@ -10,12 +10,13 @@ import HooksDemo from './HooksDemo';
 import HooksForm from './HooksForm';
 import PrivateComponent from './PrivateComponent';
 import Login from './Login';
+import SignUp from './SignUp';
 
-const PrivateRoute = ({ component: Component, auth }) => (
+const PrivateRoute = ({ component: PrivateComponent, auth }) => (
   <Route
     render={(props) =>
       auth === true ? (
-        <Component auth={auth} {...props} />
+        <PrivateComponent auth={auth} {...props} />
       ) : (
         <Redirect to={{ pathname: '/' }} />
       )
@@ -37,6 +38,7 @@ const Routes = () => {
             <Route path="/hooksform" component={HooksForm} />
             <Route path="/hooksdemo" component={HooksDemo} />
             <Route path="/authcheck" component={AuthCheck} />
+            <Route path="/signup" component={SignUp} />
 
             <PrivateRoute
               path="/privateroute"
