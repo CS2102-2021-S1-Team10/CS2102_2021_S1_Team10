@@ -26,11 +26,15 @@ const PrivateRoute = ({ component: PrivateComponent, auth }) => (
 
 const Routes = () => {
   const context = useContext(Context);
+  const userIsLoggedIn = context.authObj.isAuthenticated();
 
   return (
     <div>
       <Router history={history}>
-        <Header />
+        {userIsLoggedIn
+          ? <Header />
+          : null
+        }
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
