@@ -6,32 +6,53 @@ const pool = require('../db');
 const TOKEN_PRIVATE_KEY = 'Q94LygU{;<!PMCw';
 
 loginRouter.post('/', async (req, resp) => {
-  const body = req.body;
-  const queryValues = [body.emailAddr];
-  const query = `SELECT * FROM PCSUser WHERE emailAddr = $1`;
+  if (validUser(req.body)) {
+    //check to see if email exists in DB
+    const body = req.body;
+    const selectQuery = `SELECT * FROM PCSUser WHERE emailAddr = $1`;
+    const queryValues = [body.emailAddr];
 
-  const queryRes = await pool.query(query, queryValues);
-  const resultRows = queryRes.rows;
 
-  if (resultRows.length === 0) { // emailAddr does not exist
-    return resp.status(401).json({ error: 'Invalid username or password' });
+
+    await pool.query(selectQuery, queryValues)
+      .then(async user => {
+        console.log('user', user);
+        if (user.rowCount != 0) {
+          //compare password with hashed pasword 
+          const loggedInUser = user.rows[0];
+          bcrypt
+            .compare(body.pcspass, loggedInUser.pcspasshash)
+            .then((async comparedPassword => {
+              if (comparedPassword) {
+                //setting the 'set-cookie' header
+                const isSecure = req.app.get('env') != 'development';
+                resp.cookie('user_id', loggedInUser.emailaddr, {
+                  httpOnly: true,
+                  secure: isSecure, //make it false when in dev
+                  signed: true
+                });
+                const userForTokenSigning = {
+                  emailAddr: loggedInUser.emailAddr,
+                }
+                const token = await jwt.sign(userForTokenSigning, TOKEN_PRIVATE_KEY);
+                resp.json({
+                  token,
+                  data: loggedInUser.emailaddr,
+                  message: 'Logged in!'
+                });
+
+              } else {
+                next(Error('Invalid username or password'));
+              }
+            }));
+
+        } else {
+          next(Error('Invalid username or password'));
+        }
+      });
   } else {
-    const pcsUser = resultRows[0];
-    const passwordIsCorrect = await bcrypt.compare(body.pcspass, pcsUser.pcspasshash);
-    if (!passwordIsCorrect) return resp.status(401).json({ error: 'Invalid username or password' });
+    next(new Error('Invalid login'));
   }
-  
-
-  const pcsUser = resultRows[0];
-  const userForTokenSigning = {
-    emailAddr: pcsUser.emailAddr,
-  }
-
-  const token = await jwt.sign(userForTokenSigning, TOKEN_PRIVATE_KEY);
-
-  resp
-    .status(200)
-    .json(token);
 });
 
 module.exports = loginRouter;
