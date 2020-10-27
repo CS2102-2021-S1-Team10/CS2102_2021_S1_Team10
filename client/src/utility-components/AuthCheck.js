@@ -7,10 +7,10 @@ const AuthCheck = () => {
 
   useEffect(() => {
     if (context.authObj.isAuthenticated()) {
-      context.handleUserLogin();
+      context.dispatchLoginSuccess();
       history.replace('/');
     } else {
-      context.handleUserLogout();
+      context.dispatchLoginFailure();
       history.replace('/login');
     }
   }, [context]);

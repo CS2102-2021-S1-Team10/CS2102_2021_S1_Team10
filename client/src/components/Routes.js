@@ -5,12 +5,14 @@ import Context from '../utils/context';
 import AuthCheck from '../utility-components/AuthCheck';
 
 import Home from './Home';
-import Header from './Header';
+import NavBar from './NavBar';
 import HooksDemo from './HooksDemo';
 import HooksForm from './HooksForm';
 import PrivateComponent from './PrivateComponent';
 import Login from './Login';
 import SignUp from './SignUp';
+import FirstSignUpDecideRole from './FirstSignUpDecideRole';
+
 
 const PrivateRoute = ({ component: PrivateComponent, auth }) => (
   <Route
@@ -26,13 +28,13 @@ const PrivateRoute = ({ component: PrivateComponent, auth }) => (
 
 const Routes = () => {
   const context = useContext(Context);
-  const userIsLoggedIn = context.authObj.isAuthenticated();
-
+  const userIsLoggedIn = context.authState;
+  
   return (
     <div>
       <Router history={history}>
         {userIsLoggedIn
-          ? <Header />
+          ? <NavBar />
           : null
         }
         <div>
@@ -43,6 +45,7 @@ const Routes = () => {
             <Route path="/hooksdemo" component={HooksDemo} />
             <Route path="/authcheck" component={AuthCheck} />
             <Route path="/signup" component={SignUp} />
+            <Route path="/first-time-sign-up" component={FirstSignUpDecideRole} />
 
             <PrivateRoute
               path="/privateroute"

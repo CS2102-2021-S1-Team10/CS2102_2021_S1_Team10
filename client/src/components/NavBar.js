@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Context from '../utils/context';
 
-const Header = () => {
+const NavBar = () => {
   const context = useContext(Context)
 
     return(
@@ -26,8 +26,4 @@ const Header = () => {
         </div>
   )};
 
-
-
-
-
-export default Header;
+export default NavBar;

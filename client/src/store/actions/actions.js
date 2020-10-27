@@ -1,3 +1,4 @@
+import { userRoleReducer } from '../reducers/user_role_reducer';
 import * as ACTION_TYPES from './action_types';
 
 export const success = () => {
@@ -21,5 +22,12 @@ export const login_success = () => {
 export const login_failure = () => {
   return {
     type: ACTION_TYPES.LOGIN_FAILURE
+  };
+};
+
+export const update_user_role = (userRoleObj) => {
+  return {
+    type: ACTION_TYPES.UPDATE_USER_ROLE,
+    payload: userRoleObj
   };
 };
