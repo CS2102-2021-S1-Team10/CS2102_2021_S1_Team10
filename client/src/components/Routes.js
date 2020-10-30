@@ -34,9 +34,9 @@ const Routes = () => {
   return (
     <div>
       <Router history={history}>
-        {userIsLoggedIn || !userHasRole
+        {userIsLoggedIn && userHasRole
           ? <NavBar />
-          : null
+          :  null
         }
         <div>
           <Switch>
