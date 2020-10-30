@@ -6,11 +6,11 @@ export default class Auth {
   emailAddr = null;
 
   login = async (credentials) => {
-    const token = await loginService.login(credentials);
+    const userToken = await loginService.login(credentials);
     // if login fails, the below lines are not executed
-    window.localStorage.setItem('userToken', JSON.stringify(token));
-    this._setHeaderConfig(token);
-    this._setEmailAddr(credentials.emailAddr);
+    window.localStorage.setItem('userToken', JSON.stringify(userToken));
+    this._setHeaderConfig(userToken.token);
+    this._setEmailAddr(userToken.emailAddr);
     setTimeout(() => {
       history.replace('/authcheck');
     }, 200);
@@ -25,8 +25,19 @@ export default class Auth {
     }, 200);
   };
 
+  // single source of truth
   isAuthenticated = () => {
-    return Boolean(localStorage.getItem('userToken'));
+    if (Boolean(localStorage.getItem('userToken'))) {
+      const userToken = JSON.parse(localStorage.getItem('userToken'));
+      this._setHeaderConfig(userToken.token);
+      this._setEmailAddr(userToken.emailAddr);
+      return true;
+    } else {
+      this._setHeaderConfig(null);
+      this._setEmailAddr(null);
+      return false;
+    }
+   
   };
   
   _setEmailAddr = (emailAddr) => {

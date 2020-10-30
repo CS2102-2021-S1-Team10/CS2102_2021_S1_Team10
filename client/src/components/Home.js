@@ -18,27 +18,27 @@ const Home = (_props) => {
   } = context;
 
   useEffect(() => {
+    // to prevent infinite loop of state being updated
     if (stateIsAuthenticated === authObj.isAuthenticated()) return;
     if (authObj.isAuthenticated()) {
-      dispatchLoginSuccess(authObj.emailAddr)
+      console.log(authObj);
+      dispatchLoginSuccess(authObj.emailAddr);
     } else {
       dispatchLoginFailure();
     }
   }, [authObj, dispatchLoginFailure, dispatchLoginSuccess, stateIsAuthenticated]);
 
-  // useEffect(() => {
-  //   if (!stateIsAuthenticated) return;
-  //   try {
-  //     const userRole = checkUserRoleService.getUserRole(stateEmailAddr);
-  //     console.log(123);
-  //     // if (userRole.stateIsOwner === stateIsOwner && userRole.stateIsSitter === stateIsSitter) return;
-  //     // dispatchUpdateUserRole(userRole);
-  //   } catch (exception) {
-  //     console.error(exception.data.response.error);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!stateIsAuthenticated) return;
+    try {
+      const userRole = checkUserRoleService.getUserRole(stateEmailAddr);
+      // if (userRole.stateIsOwner === stateIsOwner && userRole.stateIsSitter === stateIsSitter) return;
+      // dispatchUpdateUserRole(userRole);
+    } catch (exception) {
+      console.error(exception.data.response.error);
+    }
+  }, []);
 
-  console.log(stateIsAuthenticated, stateEmailAddr);
   if (!stateIsAuthenticated) {
     return <Login />;
   }
@@ -50,7 +50,7 @@ const Home = (_props) => {
   return (
     <div>
       <p>Home</p>
-      {stateEmailAddr}
+      
     </div>
   );
 };
