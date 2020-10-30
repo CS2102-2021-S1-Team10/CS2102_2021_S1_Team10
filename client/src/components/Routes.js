@@ -45,7 +45,7 @@ const Routes = () => {
             <Route path="/hooksform" component={HooksForm} />
             <Route path="/hooksdemo" component={HooksDemo} />
             <Route path="/authcheck" component={AuthCheck} />
-            <Route path="/signup" component={SignUp} />
+            <Route path="/user/signup" component={SignUp} />
             <Route path="/first-time-sign-up" component={FirstSignUpDecideRole} />
 
             <PrivateRoute

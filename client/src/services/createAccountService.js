@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = '/api/signup';
+const BASE_URL = '/api/user/signup';
 
 const createNewAccount = async credentials => {
   // errors will be caught by SignUp.js

@@ -127,7 +127,7 @@ const Login = (_props) => {
               </Button>
             </form>
             <div>
-              New user? <Link to="/signup">Sign up</Link>
+              New user? <Link to="/user/signup">Sign up</Link>
             </div>
           </div>
         </Grid>

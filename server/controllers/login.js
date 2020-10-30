@@ -24,7 +24,7 @@ loginRouter.post('/', async (req, resp) => {
 
   const pcsUser = resultRows[0];
   const userForTokenSigning = {
-    emailAddr: pcsUser.emailAddr,
+    emailAddr: pcsUser.emailAddr
   }
 
   const token = await jwt.sign(userForTokenSigning, TOKEN_PRIVATE_KEY);

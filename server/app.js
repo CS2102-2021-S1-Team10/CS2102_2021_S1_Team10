@@ -16,8 +16,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (_req, resp) => resp.json('Hello! This is the backend for PCS'));
 app.use('/api/login', loginRouter);
-app.use('/api/signup', userRouter)
+app.use('/api/user', userRouter)
 
-
+ 
+app.use((error, _req, resp, _next) => {
+  return resp.status(500).json({ error: error.toString() });
+});
 
 module.exports = app;
