@@ -10,6 +10,7 @@ import HooksDemo from './HooksDemo';
 import HooksForm from './HooksForm';
 import PrivateComponent from './PrivateComponent';
 import Login from './Login';
+import Register from './Register';
 
 const PrivateRoute = ({ component: Component, auth }) => (
   <Route
@@ -34,6 +35,7 @@ const Routes = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
             <Route path="/hooksform" component={HooksForm} />
             <Route path="/hooksdemo" component={HooksDemo} />
             <Route path="/authcheck" component={AuthCheck} />

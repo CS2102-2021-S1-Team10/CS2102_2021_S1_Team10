@@ -113,6 +113,7 @@ const Login = (_props) => {
             >
               Sign In
             </Button>
+            <Typography component="body2" variant="alignCenter">Not yet registered?</Typography>
           </form>
         </div>
       </Grid>

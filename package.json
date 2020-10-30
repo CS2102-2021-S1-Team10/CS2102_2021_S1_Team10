@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/trishaangelica/CS2102_2021_S1_Team10/issues"
   },
-  "homepage": "https://github.com/trishaangelica/CS2102_2021_S1_Team10#readme"
+  "homepage": "https://github.com/trishaangelica/CS2102_2021_S1_Team10#readme",
+  "dependencies": {
+    "jquery": "^3.5.1"
+  }
 }

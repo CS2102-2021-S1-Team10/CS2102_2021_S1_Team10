@@ -2,6 +2,6 @@ POST http://localhost:5000/api/signup
 Content-Type: application/json
 
 {
-"emailAddr": "dummy@gmail.com",
+"emailAddr": "dummy12345@gmail.com",
 "pcspass": "iamadummy"
 }
