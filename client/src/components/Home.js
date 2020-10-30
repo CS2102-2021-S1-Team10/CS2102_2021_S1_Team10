@@ -1,19 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useContext, useEffect } from 'react';
+import Context from '../utils/context';
+import checkUserRoleService from '../services/checkUserRoleService';
+import Login from './Login';
+import FirstSignUpDecideRole from './FirstSignUpDecideRole';
 
 const Home = (_props) => {
-  useEffect(() => {
-    axios
-      .get('/api/hello')
-      .then((res) => setState(res.data));
-  }, []);
+  const context = useContext(Context);
+  const {
+    authObj,
+    stateIsAuthenticated,
+    stateEmailAddr,
+    stateIsOwner,
+    stateIsSitter,
+    dispatchUpdateUserRole,
+    dispatchLoginSuccess,
+    dispatchLoginFailure,
+  } = context;
 
-  const [state, setState] = useState('');
+  useEffect(() => {
+    if (authObj.isAuthenticated()) {
+      dispatchLoginSuccess(authObj.emailAddr)
+    } else {
+      dispatchLoginFailure();
+    }
+  }, [authObj, dispatchLoginSuccess, dispatchLoginFailure]);
+
+  useEffect(() => {
+    if (!stateIsAuthenticated) return;
+    try {
+      const userRole = checkUserRoleService.getUserRole(stateEmailAddr);
+      if (userRole.stateIsOwner === stateIsOwner && userRole.stateIsSitter === stateIsSitter) return;
+      dispatchUpdateUserRole(userRole);
+    } catch (exception) {
+      console.error(exception.data.response.error);
+    }
+  }, [context, dispatchUpdateUserRole, stateEmailAddr, stateIsAuthenticated, stateIsOwner, stateIsSitter]);
+
+  console.log(stateIsAuthenticated, stateEmailAddr);
+  if (!stateIsAuthenticated) {
+    return <Login />;
+  }
+
+  if (!stateIsSitter && !stateIsOwner) {
+    return <FirstSignUpDecideRole />;
+  }
 
   return (
     <div>
-      Home
-      <p>{state.name}</p>
+      <p>Home</p>
+      {stateEmailAddr}
     </div>
   );
 };

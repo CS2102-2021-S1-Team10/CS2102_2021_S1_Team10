@@ -19,7 +19,7 @@ const NavBar = () => {
           <Link to='/privateroute' style={{padding: '5px'}}>
             Private Route
           </Link>
-          {!context.authState
+          {!context.stateIsAuthenticated
             ? <button onClick={() => context.authObj.login()}>Login</button>
             : <button onClick={() => context.authObj.logout()}>Logout</button>
           }

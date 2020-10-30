@@ -15,7 +15,7 @@ usersRouter.post('/', async (req, resp, next) => {
   try {
     await pool.query(query, values);
   } catch (exception) {
-    return resp.status(500).json({ error: 'Email address already connected to an existing account'});
+    return resp.status(500).json({ error: 'An account has already been registered to this email address.'});
   }
 	resp.status(204).end();
 });

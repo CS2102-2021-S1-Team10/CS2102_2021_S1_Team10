@@ -1,4 +1,3 @@
-import { userRoleReducer } from '../reducers/user_role_reducer';
 import * as ACTION_TYPES from './action_types';
 
 export const success = () => {
@@ -13,9 +12,10 @@ export const failure = () => {
   };
 };
 
-export const login_success = () => {
+export const login_success = (emailAddr) => {
   return {
-    type: ACTION_TYPES.LOGIN_SUCCESS
+    type: ACTION_TYPES.LOGIN_SUCCESS,
+    payload: emailAddr
   };
 };
 

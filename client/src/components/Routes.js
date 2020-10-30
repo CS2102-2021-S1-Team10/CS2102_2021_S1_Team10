@@ -28,12 +28,13 @@ const PrivateRoute = ({ component: PrivateComponent, auth }) => (
 
 const Routes = () => {
   const context = useContext(Context);
-  const userIsLoggedIn = context.authState;
+  const userIsLoggedIn = context.stateIsAuthenticated;
+  const userHasRole = context.stateIsOwner || context.stateIsSitter;
   
   return (
     <div>
       <Router history={history}>
-        {userIsLoggedIn
+        {userIsLoggedIn || !userHasRole
           ? <NavBar />
           : null
         }
@@ -49,7 +50,7 @@ const Routes = () => {
 
             <PrivateRoute
               path="/privateroute"
-              auth={context.authState}
+              auth={context.stateIsAuthenticated}
               component={PrivateComponent}
             />
           </Switch>

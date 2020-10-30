@@ -7,7 +7,7 @@ const AuthCheck = () => {
 
   useEffect(() => {
     if (context.authObj.isAuthenticated()) {
-      context.dispatchLoginSuccess();
+      context.dispatchLoginSuccess(context.authObj.emailAddr);
       history.replace('/');
     } else {
       context.dispatchLoginFailure();

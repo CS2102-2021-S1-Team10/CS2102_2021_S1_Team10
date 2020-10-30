@@ -3,12 +3,14 @@ import loginService from '../services/loginService';
 
 export default class Auth {
   headerConfig = null;
+  emailAddr = null;
 
   login = async (credentials) => {
     const token = await loginService.login(credentials);
     // if login fails, the below lines are not executed
     window.localStorage.setItem('userToken', JSON.stringify(token));
     this._setHeaderConfig(token);
+    this._setEmailAddr(credentials.emailAddr);
     setTimeout(() => {
       history.replace('/authcheck');
     }, 200);
@@ -17,6 +19,7 @@ export default class Auth {
   logout = () => {
     localStorage.removeItem('userToken');
     this._setHeaderConfig(null);
+    this._setEmailAddr(null);
     setTimeout(() => {
       history.replace('/authcheck');
     }, 200);
@@ -25,6 +28,10 @@ export default class Auth {
   isAuthenticated = () => {
     return Boolean(localStorage.getItem('userToken'));
   };
+  
+  _setEmailAddr = (emailAddr) => {
+    this.emailAddr = emailAddr;
+  }
 
   _setHeaderConfig = (token) => {
     let authorizationStr = null;

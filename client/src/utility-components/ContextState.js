@@ -30,8 +30,8 @@ const ContextState = () => {
     authReducer.initialState
   );
 
-  const handleLogin = () => {
-    dispatchAuthReducer(ACTIONS.login_success());
+  const handleLogin = (emailAddr) => {
+    dispatchAuthReducer(ACTIONS.login_success(emailAddr));
   };
 
   const handleLogout = () => {
@@ -43,8 +43,8 @@ const ContextState = () => {
     userRoleReducer.initialState
   );
 
-  const updateUserState = (payload) => {
-    dispatchUserRoleReducer(ACTIONS.update_user_role(payload));
+  const updateUserRole = (userRoleObj) => {
+    dispatchUserRoleReducer(ACTIONS.update_user_role(userRoleObj));
   };
 
 
@@ -57,13 +57,14 @@ const ContextState = () => {
           dispatchContextTrue: () => handleDispatchTrue(),
           dispatchContextFalse: () => handleDispatchFalse(),
 
-          authState: stateAuthReducer.is_authenticated,
-          dispatchLoginSuccess: () => handleLogin(),
+          stateIsAuthenticated: stateAuthReducer.is_authenticated,
+          stateEmailAddr: stateAuthReducer.email_addr,
+          dispatchLoginSuccess: (emailAddr) => handleLogin(emailAddr),
           dispatchLoginFailure: () => handleLogout(),
 
           stateUserIsSitter: stateUserRoleReducer.stateUserIsSitter,
           stateUserIsOwner: stateUserRoleReducer.stateUserIsOwner,
-          dispatchUserRoleUpdate: (payload) => updateUserState(payload),
+          dispatchUpdateUserRole: (userRoleObj) => updateUserRole(userRoleObj),
 
           authObj: auth
         }}
