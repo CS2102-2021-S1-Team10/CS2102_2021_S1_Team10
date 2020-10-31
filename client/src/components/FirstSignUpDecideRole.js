@@ -3,6 +3,7 @@ import history from '../utils/history';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const useStyles = makeStyles((theme) => ({
   headerText: {
@@ -40,6 +41,7 @@ const FirstSignUpDecideRole = () => {
 
   return (
     <div>
+      <CssBaseline />
       <Typography component="h1" variant="h2" align="center" className={classes.headerText}>
         I AM A...
       </Typography>

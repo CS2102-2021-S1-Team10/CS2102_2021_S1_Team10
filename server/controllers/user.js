@@ -21,7 +21,7 @@ usersRouter.post('/signup', async (req, resp, next) => {
 });
 
 
-usersRouter.post('/user/get-user-role', async (req, resp, next) => {
+usersRouter.post('/get-user-role', async (req, resp, next) => {
   const body = req.body;
   const emailAddr = body.emailAddr;
   const values = [emailAddr];

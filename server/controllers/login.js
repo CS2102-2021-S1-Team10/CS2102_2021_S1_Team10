@@ -28,10 +28,13 @@ loginRouter.post('/', async (req, resp) => {
   }
 
   const token = await jwt.sign(userForTokenSigning, TOKEN_PRIVATE_KEY);
-
+  const userAndToken = {
+    token,
+    emailAddr: body.emailAddr
+  }
   resp
     .status(200)
-    .json(token);
+    .json(userAndToken);
 });
 
 module.exports = loginRouter;

@@ -28,16 +28,16 @@ const Home = (_props) => {
     }
   }, [authObj, dispatchLoginFailure, dispatchLoginSuccess, stateIsAuthenticated]);
 
-  useEffect(() => {
-    if (!stateIsAuthenticated) return;
-    try {
-      const userRole = checkUserRoleService.getUserRole(stateEmailAddr);
-      // if (userRole.stateIsOwner === stateIsOwner && userRole.stateIsSitter === stateIsSitter) return;
-      // dispatchUpdateUserRole(userRole);
-    } catch (exception) {
-      console.error(exception.data.response.error);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!stateIsAuthenticated) return;
+  //   try {
+  //     const userRole = checkUserRoleService.getUserRole(stateEmailAddr);
+  //     // if (userRole.stateIsOwner === stateIsOwner && userRole.stateIsSitter === stateIsSitter) return;
+  //     // dispatchUpdateUserRole(userRole);
+  //   } catch (exception) {
+  //     console.error(exception.data.response.error);
+  //   }
+  // }, []);
 
   if (!stateIsAuthenticated) {
     return <Login />;

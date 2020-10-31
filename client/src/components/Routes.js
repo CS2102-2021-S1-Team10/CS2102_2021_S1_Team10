@@ -12,6 +12,7 @@ import PrivateComponent from './PrivateComponent';
 import Login from './Login';
 import SignUp from './SignUp';
 import FirstSignUpDecideRole from './FirstSignUpDecideRole';
+import CreateProfileFormOwner from './create_profile/CreateProfileFormOwner';
 
 
 const PrivateRoute = ({ component: PrivateComponent, auth }) => (
@@ -47,6 +48,7 @@ const Routes = () => {
             <Route path="/authcheck" component={AuthCheck} />
             <Route path="/user/signup" component={SignUp} />
             <Route path="/first-time-sign-up" component={FirstSignUpDecideRole} />
+            <Route path="/create-profile-owner" component={CreateProfileFormOwner} />
 
             <PrivateRoute
               path="/privateroute"
