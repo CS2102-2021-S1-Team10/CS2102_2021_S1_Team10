@@ -1,0 +1,14 @@
+
+
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('ymcmeekin0@cyberchimps.com', 'IaCOA40c3lnQ', 'Yorgo', 'Mc Meekin', '1996-02-21', '8 Buell Circle', 8.0, 1, 65, 1, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('vpipe1@squidoo.com', '6uCKLSbyf2', 'Viva', 'Pipe', '1992-07-29', '02526 Brown Avenue', 6.5, 1, 65, 1, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('dfigin2@spotify.com', 'sPpdl2Eq', 'Drucy', 'Figin', '1940-10-16', '9 Mallard Point', 7.0, 1, 65, 1, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('rmacura3@ucoz.com', '4ip9Vg', 'Ruperto', 'Macura', '1962-07-30', '6406 Farragut Park', 8.0, 1, NULL, 0, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('aroggers4@newyorker.com', 'v5aCHIyX', 'Avril', 'Roggers', '1944-11-08', '0 Dakota Street', 8.5, 1, NULL, 0, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('bfairholm5@canalblog.com', '3cIIKs6pJZ', 'Bendick', 'Fairholm', '1976-02-05', '8 Portage Center', 7.5, 1, NULL, 0, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('msopp6@va.gov', 'UNVnqMn', 'Maximilien', 'Sopp', '1979-11-03', '84833 Maryland Road', 6.5, 1, NULL, 0, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('cbernade7@surveymonkey.com', '4VkZMGBVEc', 'Christiane', 'Bernade', '1961-11-28', '265 Arrowood Junction', 7.5, 1, 65, 1, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('mleifer8@slideshare.net', 'DgNwaWyXCIPc', 'Marnia', 'Leifer', '1996-08-05', '6 Tony Park', 9.0, 1, 65, 1, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('rnare9@army.mil', 'AxRCsai', 'Ross', 'Nare', '1985-05-10', '9057 Superior Terrace', 8.0, 1, 65, 1, 3000.00);
+INSERT INTO caretaker (emailaddr, pcspass, firstname, lastname, dob, homeaddr, avgrating, petdays, availleave, employmenttype, basesalary) VALUES ('jtomsena@toplist.cz', 'swyEVDO1WxJ9', 'Johnnie', 'Tomsen', '1967-06-28', '72 Monterey Center', 8.0, 1, 65, 1, 3000.00);
+

@@ -1,0 +1,15 @@
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('ymcmeekin0@cyberchimps.com', 'IaCOA40c3lnQ', 'Yorgo', 'Mc Meekin', '21/02/1996', '8 Buell Circle');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('vpipe1@squidoo.com', '6uCKLSbyf2', 'Viva', 'Pipe', '29/07/1992', '02526 Brown Avenue');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('dfigin2@spotify.com', 'sPpdl2Eq', 'Drucy', 'Figin', '16/10/1940', '9 Mallard Point');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('rmacura3@ucoz.com', '4ip9Vg', 'Ruperto', 'Macura', '30/07/1962', '6406 Farragut Park');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('aroggers4@newyorker.com', 'v5aCHIyX', 'Avril', 'Roggers', '08/11/1944', '0 Dakota Street');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('bfairholm5@canalblog.com', '3cIIKs6pJZ', 'Bendick', 'Fairholm', '05/02/1976', '8 Portage Center');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('msopp6@va.gov', 'UNVnqMn', 'Maximilien', 'Sopp', '03/11/1979', '84833 Maryland Road');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('cbernade7@surveymonkey.com', '4VkZMGBVEc', 'Christiane', 'Bernade', '28/11/1961', '265 Arrowood Junction');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('mleifer8@slideshare.net', 'DgNwaWyXCIPc', 'Marnia', 'Leifer', '05/08/1996', '6 Tony Park');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('rnare9@army.mil', 'AxRCsai', 'Ross', 'Nare', '10/05/1985', '9057 Superior Terrace');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('jtomsena@toplist.cz', 'swyEVDO1WxJ9', 'Johnnie', 'Tomsen', '28/06/1967', '72 Monterey Center');
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('tmaconb@trellian.com', 's3NsDV4', null, null, null, null);
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('asoggeec@twitter.com', 'HSn8DfhJE', null, null, null, null);
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('vcalderwoodd@bing.com', 'EsP0nQ', null, null, null, null);
+insert into PCSUser (emailaddr, pcspass, firstname, lastname, dob, homeaddr) values ('wdesesquellee@reddit.com', 'OFu4CferWkE2', null, null, null, null);
