@@ -31,8 +31,8 @@ usersRouter.post('/get-user-role', async (req, resp, next) => {
   const isCaretaker = queryCaretakerResult.rows.length > 0;
 
   const userRole = {
-    stateIsOwner: isOwner,
-    stateIsSitter: isCaretaker
+    stateUserIsOwner: isOwner,
+    stateUserIsSitter: isCaretaker
   }
   
   resp.json(userRole);

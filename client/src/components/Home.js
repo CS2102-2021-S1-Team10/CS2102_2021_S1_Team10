@@ -10,47 +10,61 @@ const Home = (_props) => {
     authObj,
     stateIsAuthenticated,
     stateEmailAddr,
-    stateIsOwner,
-    stateIsSitter,
+    stateUserIsOwner,
+    stateUserIsSitter,
     dispatchUpdateUserRole,
     dispatchLoginSuccess,
-    dispatchLoginFailure,
+    dispatchLoginFailure
   } = context;
 
   useEffect(() => {
     // to prevent infinite loop of state being updated
     if (stateIsAuthenticated === authObj.isAuthenticated()) return;
     if (authObj.isAuthenticated()) {
-      console.log(authObj);
       dispatchLoginSuccess(authObj.emailAddr);
     } else {
       dispatchLoginFailure();
     }
-  }, [authObj, dispatchLoginFailure, dispatchLoginSuccess, stateIsAuthenticated]);
+  }, [
+    authObj,
+    dispatchLoginFailure,
+    dispatchLoginSuccess,
+    stateIsAuthenticated
+  ]);
 
-  // useEffect(() => {
-  //   if (!stateIsAuthenticated) return;
-  //   try {
-  //     const userRole = checkUserRoleService.getUserRole(stateEmailAddr);
-  //     // if (userRole.stateIsOwner === stateIsOwner && userRole.stateIsSitter === stateIsSitter) return;
-  //     // dispatchUpdateUserRole(userRole);
-  //   } catch (exception) {
-  //     console.error(exception.data.response.error);
-  //   }
-  // }, []);
+  const getUserRoleFromCheckUserRoleService = async () => {
+    const userRole = await checkUserRoleService.getUserRole(stateEmailAddr);
+
+    // prevent infinite loop of state updates
+    if (
+      userRole.stateUserIsOwner === stateUserIsOwner &&
+      userRole.stateUserIsSitter === stateUserIsSitter
+      )
+      return;
+    dispatchUpdateUserRole(userRole);
+  };
+
+  useEffect(() => {
+    if (!stateIsAuthenticated) return;
+
+    try {
+      getUserRoleFromCheckUserRoleService();
+    } catch (exception) {
+      console.error(exception.data.response.error);
+    }
+  }, [stateIsAuthenticated, getUserRoleFromCheckUserRoleService]);
 
   if (!stateIsAuthenticated) {
     return <Login />;
   }
 
-  if (!stateIsSitter && !stateIsOwner) {
+  if (!stateUserIsSitter && !stateUserIsOwner) {
     return <FirstSignUpDecideRole />;
   }
 
   return (
     <div>
       <p>Home</p>
-      
     </div>
   );
 };

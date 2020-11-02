@@ -17,7 +17,6 @@ loginRouter.post('/', async (req, resp) => {
   } else {
     const pcsUser = resultRows[0];
     const passwordIsCorrect = (body.pcspass === pcsUser.pcspass);
-    console.log(body.pcspass, pcsUser.pcspass, passwordIsCorrect);
     if (!passwordIsCorrect) return resp.status(401).json({ error: 'Invalid username or password' });
   }
   
