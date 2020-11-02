@@ -1,15 +1,12 @@
 const usersRouter = require('express').Router();
-const bcrypt = require('bcrypt');
 const pool = require('../db');
 
 usersRouter.post('/signup', async (req, resp, next) => {
   const body = req.body;
-  const SALT_ROUNDS = 10;
-
-  const emailAddr = body.emailAddr;
-  const passwordHash = await bcrypt.hash(body.pcspass, SALT_ROUNDS);
-	const values = [emailAddr, passwordHash];
-	const query = `INSERT INTO PCSUser(emailAddr, pcspassHash) Values ($1, $2)`;
+  const {emailAddr, pcspass} = body;
+  
+	const values = [emailAddr, pcspass];
+	const query = `INSERT INTO PCSUser(emailAddr, pcspass) Values ($1, $2)`;
 
 	
   try {

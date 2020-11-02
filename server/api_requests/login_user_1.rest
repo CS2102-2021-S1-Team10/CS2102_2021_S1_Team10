@@ -2,6 +2,6 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-"emailAddr": "dummy@gmail.com",
-"pcspass": "iamadummy"
+"emailAddr": "dfigin2@spotify.com",
+"pcspass": "sPpdl2Eq"
 }
