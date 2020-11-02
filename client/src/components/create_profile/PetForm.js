@@ -1,5 +1,4 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -56,6 +55,7 @@ const PetForm = (props) => {
             onChange={(e) => setPetType(e.target.value)}
             displayEmpty
             fullWidth
+            value="Dog"
           >
             <MenuItem value="Dog">Dog</MenuItem>
             <MenuItem value="Cat">Cat</MenuItem>
@@ -73,6 +73,7 @@ const PetForm = (props) => {
             onChange={(e) => setPetGender(e.target.value)}
             displayEmpty
             fullWidth
+            value="M"
           >
             <MenuItem value="M">Male</MenuItem>
             <MenuItem value="F">Female</MenuItem>

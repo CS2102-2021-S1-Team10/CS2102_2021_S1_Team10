@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Context from '../../utils/context';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,9 +10,9 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
 import OwnerForm from './OwnerForm';
 import PetForm from './PetForm';
+import userRoleService from '../../services/userRoleService';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -69,6 +70,9 @@ const CreateProfileFormOwner = (_props) => {
   const [petBirthday, setPetBirthday] = React.useState('');
   const [specialRequirements, setSpecialRequirements] = React.useState('');
 
+  const context = useContext(Context);
+
+  // TODO: make into controlled component
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -98,8 +102,16 @@ const CreateProfileFormOwner = (_props) => {
     }
   }
 
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
+  const handleNext = async () => {
+    // submit form and update db, then update context state
+    if (activeStep + 1 === 2) {
+      const owner = {firstName, lastName, address, postalCode, birthday};
+      const pet = {petName, breed, petType, petGender, weight, petBirthday, specialRequirements};
+      const updatedUserRoleObj = await userRoleService.addOwnerRole(owner, pet, context.stateEmailAddr);
+      context.dispatchUpdateUserRole(updatedUserRoleObj);
+    } else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {

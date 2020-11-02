@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Context from '../utils/context';
-import checkUserRoleService from '../services/checkUserRoleService';
+import userRoleService from '../services/userRoleService';
 import Login from './Login';
 import FirstSignUpDecideRole from './FirstSignUpDecideRole';
 
@@ -32,27 +32,27 @@ const Home = (_props) => {
     stateIsAuthenticated
   ]);
 
-  const getUserRoleFromCheckUserRoleService = async () => {
-    const userRole = await checkUserRoleService.getUserRole(stateEmailAddr);
-
-    // prevent infinite loop of state updates
-    if (
-      userRole.stateUserIsOwner === stateUserIsOwner &&
-      userRole.stateUserIsSitter === stateUserIsSitter
-      )
-      return;
-    dispatchUpdateUserRole(userRole);
-  };
-
   useEffect(() => {
     if (!stateIsAuthenticated) return;
 
+    const getUserRoleFromUserRoleService = async () => {
+      const userRole = await userRoleService.getUserRole(stateEmailAddr);
+
+      // prevent infinite loop of state updates
+      if (
+        userRole.stateUserIsOwner === stateUserIsOwner &&
+        userRole.stateUserIsSitter === stateUserIsSitter
+      )
+        return;
+      dispatchUpdateUserRole(userRole);
+    };
+
     try {
-      getUserRoleFromCheckUserRoleService();
+      getUserRoleFromUserRoleService();
     } catch (exception) {
       console.error(exception.data.response.error);
     }
-  }, [stateIsAuthenticated, getUserRoleFromCheckUserRoleService]);
+  }, [stateIsAuthenticated, dispatchUpdateUserRole, stateEmailAddr, stateUserIsOwner, stateUserIsSitter]);
 
   if (!stateIsAuthenticated) {
     return <Login />;
