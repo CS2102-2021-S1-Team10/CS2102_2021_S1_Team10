@@ -6,13 +6,12 @@ import AuthCheck from '../utility-components/AuthCheck';
 
 import Home from './Home';
 import NavBar from './NavBar';
-import HooksDemo from './HooksDemo';
-import HooksForm from './HooksForm';
 import PrivateComponent from './PrivateComponent';
 import Login from './Login';
 import SignUp from './SignUp';
 import FirstSignUpDecideRole from './FirstSignUpDecideRole';
 import CreateProfileFormOwner from './create_profile/CreateProfileFormOwner';
+import BookingWidget from './booking/BookingWidget';
 
 
 const PrivateRoute = ({ component: PrivateComponent, auth }) => (
@@ -43,12 +42,11 @@ const Routes = () => {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/hooksform" component={HooksForm} />
-            <Route path="/hooksdemo" component={HooksDemo} />
             <Route path="/authcheck" component={AuthCheck} />
             <Route path="/user/signup" component={SignUp} />
             <Route path="/first-time-sign-up" component={FirstSignUpDecideRole} />
             <Route path="/create-profile-owner" component={CreateProfileFormOwner} />
+            <Route path="/widget" component={BookingWidget} />
 
             <PrivateRoute
               path="/privateroute"
