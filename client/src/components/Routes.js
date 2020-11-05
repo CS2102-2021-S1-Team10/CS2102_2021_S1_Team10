@@ -13,6 +13,7 @@ import FirstSignUpDecideRole from './FirstSignUpDecideRole';
 import CreateProfileFormOwner from './create_profile/CreateProfileFormOwner';
 import BookingWidget from './booking/BookingWidget';
 import CreateProfileFormCaretaker from './create_profile/CreateProfileFormCaretaker';
+import CreateProfileFormCreditCard from './create_profile/CreateProfileFormCreditCard';
 
 
 const PrivateRoute = ({ component: PrivateComponent, auth }) => (
@@ -48,6 +49,7 @@ const Routes = () => {
             <Route path="/first-time-sign-up" component={FirstSignUpDecideRole} />
             <Route path="/create-profile-owner" component={CreateProfileFormOwner} />
             <Route path="/create-profile-caretaker" component={CreateProfileFormCaretaker}/>
+            <Route path="/create-profile-creditcard" component={CreateProfileFormCreditCard}/>
             <Route path="/widget" component={BookingWidget} />
 
             <PrivateRoute
