@@ -15,6 +15,11 @@ const addOwnerRole = async (owner, pet, emailAddr) => {
 const addCaretakerRole = async (caretaker, emailAddr) => {
   const reqBody = {caretaker, emailAddr}
   // errors will be caught in CreateProfileFormOwner.js
-  await axios.post(`${BASE_URL}/add-owner-role`, reqBody);
+  await axios.post(`${BASE_URL}/add-caretaker-role`, reqBody);
 }
-export default { getUserRole, addOwnerRole, addCaretakerRole };
+const addCreditCardRole = async (CreditCard, emailAddr) => {
+  const reqBody = {CreditCard, emailAddr}
+  // errors will be caught in CreateProfileFormOwner.js
+  await axios.post(`${BASE_URL}/add-creditcard-role`, reqBody);
+}
+export default { getUserRole, addOwnerRole, addCaretakerRole, addCreditCardRole };
