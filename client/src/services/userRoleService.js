@@ -12,4 +12,9 @@ const addOwnerRole = async (owner, pet, emailAddr) => {
   await axios.post(`${BASE_URL}/add-owner-role`, reqBody);
 }
 
-export default { getUserRole, addOwnerRole };
+const addCaretakerRole = async (caretaker, emailAddr) => {
+  const reqBody = {caretaker, emailAddr}
+  // errors will be caught in CreateProfileFormOwner.js
+  await axios.post(`${BASE_URL}/add-owner-role`, reqBody);
+}
+export default { getUserRole, addOwnerRole, addCaretakerRole };
