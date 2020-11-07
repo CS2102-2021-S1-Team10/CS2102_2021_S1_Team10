@@ -8,12 +8,14 @@ import Home from './Home';
 import NavBar from './NavBar';
 import PrivateComponent from './PrivateComponent';
 import Login from './Login';
+import AdminLogin from './admin/AdminLogin';
 import SignUp from './SignUp';
 import FirstSignUpDecideRole from './FirstSignUpDecideRole';
 import CreateProfileFormOwner from './create_profile/CreateProfileFormOwner';
 import BookingWidget from './booking/BookingWidget';
 import CreateProfileFormCaretaker from './create_profile/CreateProfileFormCaretaker';
 import CreateProfileFormCreditCard from './create_profile/CreateProfileFormCreditCard';
+
 
 
 const PrivateRoute = ({ component: PrivateComponent, auth }) => (
@@ -51,6 +53,7 @@ const Routes = () => {
             <Route path="/create-profile-caretaker" component={CreateProfileFormCaretaker}/>
             <Route path="/create-profile-creditcard" component={CreateProfileFormCreditCard}/>
             <Route path="/widget" component={BookingWidget} />
+            <Route path="/admin-login" component={AdminLogin} />
 
             <PrivateRoute
               path="/privateroute"
