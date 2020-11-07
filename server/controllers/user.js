@@ -42,12 +42,12 @@ usersRouter.post('/get-user-role', async (req, resp, next) => {
 });
 
 usersRouter.post('/add-owner-role', async (req, resp, next) => {
-  const { owner, pet, emailAddr } = req.body;
+  const { owner, creditCard, pet, emailAddr } = req.body;
 
-  const valuesForQuery = [emailAddr];
+  const valuesForQuery1 = [emailAddr];
   const queryFromCaretaker = `SELECT emailAddr FROM Caretaker WHERE emailAddr = $1`;
   const queryCaretakerResult = await pool
-    .query(queryFromCaretaker, valuesForQuery)
+    .query(queryFromCaretaker, valuesForQuery1)
     .catch(next);
   const isOwner = true;
   const isCaretaker = queryCaretakerResult.rows.length > 0;
@@ -57,11 +57,63 @@ usersRouter.post('/add-owner-role', async (req, resp, next) => {
     stateUserIsSitter: isCaretaker
   };
 
+  const {
+    firstName,
+    lastName,
+    birthday: DOB,
+    address: homeAddr,
+    postalCode
+  } = owner;
+  const valuesForUpdatingPCSUser = [
+    firstName,
+    lastName,
+    DOB,
+    homeAddr,
+    postalCode,
+    emailAddr
+  ];
+  const queryUpdatePCSUser = `UPDATE PCSUser SET firstName = $1, lastName = $2, DOB = $3, homeAddr = $4, postalCode = $5 WHERE emailAddr = $6`;
 
-  // todo update db records 
+  await pool.query(queryUpdatePCSUser, valuesForUpdatingPCSUser).catch(next);
+
+  const {
+    creditCardNum,
+    CVC: creditCardCVC,
+    expiryDate: creditCardExpiryDate
+  } = creditCard;
+  const valuesForInsertPetOwner = [
+    emailAddr,
+    creditCardNum,
+    creditCardCVC,
+    creditCardExpiryDate
+  ];
+  const queryInsertPetOwner = `INSERT INTO PetOwner VALUES ($1, $2, $3, $4)`;
+
+  await pool.query(queryInsertPetOwner, valuesForInsertPetOwner).catch(next);
+
+  const {
+    petName,
+    breed,
+    petType,
+    petGender: sex,
+    weight,
+    petBirthday,
+    specialRequirements
+  } = pet;
+  const valuesForInsertOwns = [
+    emailAddr,
+    petName,
+    petType,
+    breed,
+    weight,
+    sex,
+    specialRequirements,
+    petBirthday,
+  ];
+  const queryInsertOwns = `INSERT INTO Owns Values ($1, $2, $3, $4, $5, $6, $7, $8)`;
+  await pool.query(queryInsertOwns, valuesForInsertOwns).catch(next);
   resp.json(userRole);
 });
-
 
 usersRouter.post('/get-user-pets', async (req, resp, next) => {
   const valuesForQuery = [req.body.emailAddr];
@@ -72,15 +124,19 @@ usersRouter.post('/get-user-pets', async (req, resp, next) => {
 
   const allPets = [];
   for (const row of queryOwnsResult.rows) {
-    const { petname: petName, pettype: petType, specialrequirements: specialRequirements } = row;
+    const {
+      petname: petName,
+      pettype: petType,
+      specialrequirements: specialRequirements
+    } = row;
     const pet = {
-      petName, petType, specialRequirements
-    }
+      petName,
+      petType,
+      specialRequirements
+    };
     allPets.push(pet);
   }
   resp.json(allPets);
 });
-
-
 
 module.exports = usersRouter;

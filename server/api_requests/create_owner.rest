@@ -1,0 +1,13 @@
+POST http://localhost:5000/api/user/add-owner-role 
+Content-Type: application/json
+
+{
+"owner": {
+  "firstName": "User",
+  "lastName": "A",
+  "birthday": "01-10-2000",
+  "address": "111 Adams Avenue",
+  "postalCode": "234567"
+},
+"emailAddr": "dummy@gmail.com"
+}

@@ -70,8 +70,8 @@ const CreateProfileFormOwner = (_props) => {
   const [weight, setWeight] = React.useState(0);
   const [petBirthday, setPetBirthday] = React.useState('');
   const [specialRequirements, setSpecialRequirements] = React.useState('');
-  const [creditCard, setCreditCard] = React.useState('');
-  const [CVC, setCVC] = React.useState('')
+  const [creditCardNum, setCreditCardNum] = React.useState('');
+  const [CVC, setCVC] = React.useState('');
   const [expiryDate, setExpiryDate] = React.useState('');
 
   const context = useContext(Context);
@@ -92,12 +92,12 @@ const CreateProfileFormOwner = (_props) => {
 
       case 1:
         return (
-            <CreditCardForm 
-              setCreditCard={setCreditCard}
-              setCVC={setCVC}
-              setExpiryDate={setExpiryDate}
-            />
-        )
+          <CreditCardForm
+            setCreditCard={setCreditCardNum}
+            setCVC={setCVC}
+            setExpiryDate={setExpiryDate}
+          />
+        );
       case 2:
         return (
           <PetForm
@@ -118,9 +118,24 @@ const CreateProfileFormOwner = (_props) => {
   const handleNext = async () => {
     // submit form and update db, then update context state
     if (activeStep + 1 === 3) {
-      const owner = {firstName, lastName, address, postalCode, birthday};
-      const pet = {petName, breed, petType, petGender, weight, petBirthday, specialRequirements};
-      const updatedUserRoleObj = await userRoleService.addOwnerRole(owner, pet, context.stateEmailAddr);
+      const owner = { firstName, lastName, address, postalCode, birthday };
+      const pet = {
+        petName,
+        breed,
+        petType,
+        petGender,
+        weight,
+        petBirthday,
+        specialRequirements
+      };
+      const creditCard = {creditCardNum, CVC, expiryDate};
+    
+      const updatedUserRoleObj = await userRoleService.addOwnerRole(
+        owner,
+        creditCard,
+        pet,
+        context.stateEmailAddr
+      );
       context.dispatchUpdateUserRole(updatedUserRoleObj);
     } else {
       setActiveStep(activeStep + 1);
@@ -131,6 +146,7 @@ const CreateProfileFormOwner = (_props) => {
     setActiveStep(activeStep - 1);
   };
 
+  
   return (
     <React.Fragment>
       <CssBaseline />
@@ -162,6 +178,7 @@ const CreateProfileFormOwner = (_props) => {
                   Back
                 </Button>
               )}
+  
               <Button
                 variant="contained"
                 color="primary"
