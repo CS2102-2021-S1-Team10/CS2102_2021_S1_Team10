@@ -8,8 +8,10 @@ import * as userRoleReducer from '../store/reducers/user_role_reducer';
 import Routes from '../components/Routes';
 
 import Auth from '../utils/auth';
+import AdminAuth from '../utils/adminAuth';
 
 const auth = new Auth();
+const adminAuth = new AdminAuth();
 
 const ContextState = () => {
   const [stateReducer1, dispatchReducer1] = useReducer(
@@ -66,7 +68,8 @@ const ContextState = () => {
           stateUserIsOwner: stateUserRoleReducer.stateUserIsOwner,
           dispatchUpdateUserRole: (userRoleObj) => updateUserRole(userRoleObj),
 
-          authObj: auth
+          authObj: auth, 
+          adminAuthObj: adminAuth
         }}
       > 
         <Routes />
