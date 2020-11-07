@@ -1,13 +1,15 @@
 import React, { useReducer } from 'react';
 import Context from '../utils/context';
-import * as ACTIONS from '../store/actions/actions';
+import Routes from '../components/Routes';
 
+import * as ACTIONS from '../store/actions/actions';
 import * as reducer1 from '../store/reducers/plain_reducer';
 import * as authReducer from '../store/reducers/auth_reducer';
 import * as userRoleReducer from '../store/reducers/user_role_reducer';
-import Routes from '../components/Routes';
-
+import * as userPetsReducer from '../store/reducers/user_pets_reducer';
 import Auth from '../utils/auth';
+
+
 
 const auth = new Auth();
 
@@ -48,6 +50,15 @@ const ContextState = () => {
   };
 
 
+  const [stateUserPetsReducer, dispatchUserPetsReducer] = useReducer(
+    userPetsReducer.userPetsReducer,
+    userPetsReducer.initialState
+  ); 
+
+  const updateUserPets = (allPets) => {
+    dispatchUserPetsReducer(ACTIONS.update_user_pets(allPets));
+  };
+
   return (
     <div>
       <Context.Provider
@@ -65,6 +76,9 @@ const ContextState = () => {
           stateUserIsSitter: stateUserRoleReducer.stateUserIsSitter,
           stateUserIsOwner: stateUserRoleReducer.stateUserIsOwner,
           dispatchUpdateUserRole: (userRoleObj) => updateUserRole(userRoleObj),
+
+          stateUserPets: stateUserPetsReducer.stateUserPets,
+          dispatchUpdateUserPets: (allPets) => updateUserPets(allPets),
 
           authObj: auth
         }}

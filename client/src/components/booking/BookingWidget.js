@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Context from '../../utils/context';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -10,6 +12,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 
+import userService from '../../services/userService';
 import headerImg from './header-img.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +48,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BookingWidget = (_props) => {
+  const context = useContext(Context);
+  const [allPetsLocalState, setAllPetsLocalState] = useState([]);
+
+  const [petName, setPetName] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  const useEffectCallback = () => {
+    // defining the async function
+    const getAllPetsFromUserService = async () => {
+      const allPetsFromDB = await userService.getUserPets(
+        context.stateEmailAddr
+      );
+      context.dispatchUpdateUserPets(allPetsFromDB);
+      setAllPetsLocalState(allPetsFromDB);
+    };
+
+    try {
+      // calling the async function
+      getAllPetsFromUserService(context.stateEmailAddr);
+    } catch (exception) {
+      console.error(exception.data.response.error);
+    }
+  };
+
+  useEffect(useEffectCallback, []);
+
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -65,11 +95,11 @@ const BookingWidget = (_props) => {
                   id="pet"
                   displayEmpty
                   fullWidth
-                  value="My Pet"
+                  value=""
                 >
-                  <MenuItem value="Dog">Dog</MenuItem>
-                  <MenuItem value="Cat">Cat</MenuItem>
-                  <MenuItem value="Rabbit">Rabbit</MenuItem>
+                  {allPetsLocalState.map((pet) => {
+                    return <MenuItem key={pet.petName} value={pet.petName}>{pet.petName}</MenuItem>;
+                  })}
                 </Select>
               </Grid>
               <Grid item xs={12} sm={3}>

@@ -31,3 +31,10 @@ export const update_user_role = (userRoleObj) => {
     payload: userRoleObj
   };
 };
+
+export const update_user_pets = (allPets) => {
+  return {
+    type: ACTION_TYPES.UPDATE_USER_PETS,
+    payload: allPets
+  };
+};

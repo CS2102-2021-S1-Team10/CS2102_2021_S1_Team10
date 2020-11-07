@@ -37,7 +37,6 @@ export default class Auth {
       this._setEmailAddr(null);
       return false;
     }
-   
   };
   
   _setEmailAddr = (emailAddr) => {

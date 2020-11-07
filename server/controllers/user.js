@@ -43,12 +43,10 @@ usersRouter.post('/get-user-role', async (req, resp, next) => {
 usersRouter.post('/add-owner-role', async (req, resp, next) => {
   const { owner, pet, emailAddr } = req.body;
 
-
-
-  const valuesQuery2 = [emailAddr];
+  const valuesForQuery = [emailAddr];
   const queryFromCaretaker = `SELECT emailAddr FROM Caretaker WHERE emailAddr = $1`;
   const queryCaretakerResult = await pool
-    .query(queryFromCaretaker, valuesQuery2)
+    .query(queryFromCaretaker, valuesForQuery)
     .catch(next);
   const isOwner = true;
   const isCaretaker = queryCaretakerResult.rows.length > 0;
@@ -62,5 +60,26 @@ usersRouter.post('/add-owner-role', async (req, resp, next) => {
   // todo update db records 
   resp.json(userRole);
 });
+
+
+usersRouter.post('/get-user-pets', async (req, resp, next) => {
+  const valuesForQuery = [req.body.emailAddr];
+  const queryFromOwns = `SELECT petName, petType, specialRequirements FROM Owns WHERE emailAddr = $1`;
+  const queryOwnsResult = await pool
+    .query(queryFromOwns, valuesForQuery)
+    .catch(next);
+
+  const allPets = [];
+  for (const row of queryOwnsResult.rows) {
+    const { petname: petName, pettype: petType, specialrequirements: specialRequirements } = row;
+    const pet = {
+      petName, petType, specialRequirements
+    }
+    allPets.push(pet);
+  }
+  resp.json(allPets);
+});
+
+
 
 module.exports = usersRouter;

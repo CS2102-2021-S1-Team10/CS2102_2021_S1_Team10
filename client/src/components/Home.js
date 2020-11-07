@@ -3,6 +3,8 @@ import Context from '../utils/context';
 import userRoleService from '../services/userRoleService';
 import Login from './Login';
 import FirstSignUpDecideRole from './FirstSignUpDecideRole';
+import BookingWidget from './booking/BookingWidget';
+import NavBar from './NavBar';
 
 const Home = (_props) => {
   const context = useContext(Context);
@@ -64,7 +66,8 @@ const Home = (_props) => {
 
   return (
     <div>
-      <p>Home</p>
+      <NavBar />
+      <BookingWidget />
     </div>
   );
 };
