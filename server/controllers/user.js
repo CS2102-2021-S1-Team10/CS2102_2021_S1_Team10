@@ -44,19 +44,6 @@ usersRouter.post('/get-user-role', async (req, resp, next) => {
 usersRouter.post('/add-owner-role', async (req, resp, next) => {
   const { owner, creditCard, pet, emailAddr } = req.body;
 
-  const valuesForQuery1 = [emailAddr];
-  const queryFromCaretaker = `SELECT emailAddr FROM Caretaker WHERE emailAddr = $1`;
-  const queryCaretakerResult = await pool
-    .query(queryFromCaretaker, valuesForQuery1)
-    .catch(next);
-  const isOwner = true;
-  const isCaretaker = queryCaretakerResult.rows.length > 0;
-
-  const userRole = {
-    stateUserIsOwner: isOwner,
-    stateUserIsSitter: isCaretaker
-  };
-
   const {
     firstName,
     lastName,
@@ -73,46 +60,45 @@ usersRouter.post('/add-owner-role', async (req, resp, next) => {
     emailAddr
   ];
   const queryUpdatePCSUser = `UPDATE PCSUser SET firstName = $1, lastName = $2, DOB = $3, homeAddr = $4, postalCode = $5 WHERE emailAddr = $6`;
-
   await pool.query(queryUpdatePCSUser, valuesForUpdatingPCSUser).catch(next);
+  console.log(valuesForUpdatingPCSUser)
+  // const {
+  //   creditCardNum,
+  //   CVC: creditCardCVC,
+  //   expiryDate: creditCardExpiryDate
+  // } = creditCard;
+  // const valuesForInsertPetOwner = [
+  //   emailAddr,
+  //   creditCardNum,
+  //   creditCardCVC,
+  //   creditCardExpiryDate
+  // ];
+  // const queryInsertPetOwner = `INSERT INTO PetOwner VALUES ($1, $2, $3, $4)`;
+  // // await pool.query(queryInsertPetOwner, valuesForInsertPetOwner).catch(next);
 
-  const {
-    creditCardNum,
-    CVC: creditCardCVC,
-    expiryDate: creditCardExpiryDate
-  } = creditCard;
-  const valuesForInsertPetOwner = [
-    emailAddr,
-    creditCardNum,
-    creditCardCVC,
-    creditCardExpiryDate
-  ];
-  const queryInsertPetOwner = `INSERT INTO PetOwner VALUES ($1, $2, $3, $4)`;
+  // const {
+  //   petName,
+  //   breed,
+  //   petType,
+  //   petGender: sex,
+  //   weight,
+  //   petBirthday,
+  //   specialRequirements
+  // } = pet;
+  // const valuesForInsertOwns = [
+  //   emailAddr,
+  //   petName,
+  //   petType,
+  //   breed,
+  //   weight,
+  //   sex,
+  //   specialRequirements,
+  //   petBirthday,
+  // ];
+  // const queryInsertOwns = `INSERT INTO Owns Values ($1, $2, $3, $4, $5, $6, $7, $8)`;
+  // await pool.query(queryInsertOwns, valuesForInsertOwns).catch(next);
 
-  await pool.query(queryInsertPetOwner, valuesForInsertPetOwner).catch(next);
-
-  const {
-    petName,
-    breed,
-    petType,
-    petGender: sex,
-    weight,
-    petBirthday,
-    specialRequirements
-  } = pet;
-  const valuesForInsertOwns = [
-    emailAddr,
-    petName,
-    petType,
-    breed,
-    weight,
-    sex,
-    specialRequirements,
-    petBirthday,
-  ];
-  const queryInsertOwns = `INSERT INTO Owns Values ($1, $2, $3, $4, $5, $6, $7, $8)`;
-  await pool.query(queryInsertOwns, valuesForInsertOwns).catch(next);
-  resp.json(userRole);
+  resp.status(200).end();
 });
 
 usersRouter.post('/get-user-pets', async (req, resp, next) => {
