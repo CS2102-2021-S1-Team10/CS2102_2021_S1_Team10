@@ -6,13 +6,13 @@ export default class Auth {
   emailAddr = null;
 
   login = async (credentials) => {
-    const userToken = await loginService.login(credentials);
+    const userToken = await loginService.adminLogin(credentials);
     // if login fails, the below lines are not executed
     window.localStorage.setItem('userToken', JSON.stringify(userToken));
     this._setHeaderConfig(userToken.token);
     this._setEmailAddr(userToken.emailAddr);
     setTimeout(() => {
-      history.replace('/authcheck');
+      history.replace('/adminauthcheck');
     }, 200);
   };
 
@@ -21,7 +21,7 @@ export default class Auth {
     this._setHeaderConfig(null);
     this._setEmailAddr(null);
     setTimeout(() => {
-      history.replace('/authcheck');
+      history.replace('/adminauthcheck');
     }, 200);
   };
 
