@@ -5,13 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 
 const CreditCardForm = (props) => {
-  const {
-    setCreditCard,
-    setName,
-    setCVC,
-    setExpiryDate
-
-  } = props;
+  const { setCreditCard, setCVC, setExpiryDate } = props;
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -19,18 +13,7 @@ const CreditCardForm = (props) => {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <InputLabel htmlFor="Name">Name</InputLabel>
-          <TextField
-            required
-            id="Name"
-            name="Name"
-            fullWidth
-            autoComplete="full-name"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <InputLabel htmlFor="creditCardNumber">Credit Card</InputLabel>
+          <InputLabel htmlFor="creditCardNumber">Card No.</InputLabel>
           <TextField
             required
             id="creditCardNumber"
@@ -40,8 +23,22 @@ const CreditCardForm = (props) => {
             onChange={(e) => setCreditCard(e.target.value)}
           />
         </Grid>
-        
-        <Grid item xs={12} sm={6}>
+
+        <Grid item xs={12} sm={4}>
+          <TextField
+            id="month"
+            label="Expires"
+            type="month"
+            fullWidth
+            defaultValue="2021-01"
+            InputLabelProps={{
+              shrink: true
+            }}
+            onChange={(e) => setExpiryDate(e.target.value)}
+          />
+        </Grid>
+
+        <Grid item xs={12} sm={2}>
           <InputLabel htmlFor="cvc">CVC</InputLabel>
           <TextField
             required
@@ -50,19 +47,6 @@ const CreditCardForm = (props) => {
             fullWidth
             autoComplete="cvc"
             onChange={(e) => setCVC(e.target.value)}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="month"
-            label="Expires"
-            type="month"
-            fullWidth
-            defaultValue="2015-01"
-            InputLabelProps={{
-              shrink: true
-            }}
-            onChange={(e) => setExpiryDate(e.target.value)}
           />
         </Grid>
       </Grid>

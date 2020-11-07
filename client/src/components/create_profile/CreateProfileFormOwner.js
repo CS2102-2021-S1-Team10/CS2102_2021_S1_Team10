@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import OwnerForm from './OwnerForm';
 import PetForm from './PetForm';
 import userRoleService from '../../services/userRoleService';
+import CreditCardForm from './CreditCardForm';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const steps = ['Owner Details', 'Pet Details'];
+const steps = ['Owner Details', 'Credit Card Details', 'Pet Details'];
 
 // forms are uncontrolled for now, not best practice but KIV
 const CreateProfileFormOwner = (_props) => {
@@ -69,6 +70,9 @@ const CreateProfileFormOwner = (_props) => {
   const [weight, setWeight] = React.useState(0);
   const [petBirthday, setPetBirthday] = React.useState('');
   const [specialRequirements, setSpecialRequirements] = React.useState('');
+  const [creditCard, setCreditCard] = React.useState('');
+  const [CVC, setCVC] = React.useState('')
+  const [expiryDate, setExpiryDate] = React.useState('');
 
   const context = useContext(Context);
 
@@ -85,7 +89,16 @@ const CreateProfileFormOwner = (_props) => {
             setBirthday={setBirthday}
           />
         );
+
       case 1:
+        return (
+            <CreditCardForm 
+              setCreditCard={setCreditCard}
+              setCVC={setCVC}
+              setExpiryDate={setExpiryDate}
+            />
+        )
+      case 2:
         return (
           <PetForm
             setPetName={setPetName}
@@ -104,7 +117,7 @@ const CreateProfileFormOwner = (_props) => {
 
   const handleNext = async () => {
     // submit form and update db, then update context state
-    if (activeStep + 1 === 2) {
+    if (activeStep + 1 === 3) {
       const owner = {firstName, lastName, address, postalCode, birthday};
       const pet = {petName, breed, petType, petGender, weight, petBirthday, specialRequirements};
       const updatedUserRoleObj = await userRoleService.addOwnerRole(owner, pet, context.stateEmailAddr);
@@ -144,7 +157,7 @@ const CreateProfileFormOwner = (_props) => {
           <React.Fragment>
             {getStepContent(activeStep)}
             <div className={classes.buttons}>
-              {activeStep !== 0 && (
+              {activeStep > 0 && (
                 <Button onClick={handleBack} className={classes.button}>
                   Back
                 </Button>

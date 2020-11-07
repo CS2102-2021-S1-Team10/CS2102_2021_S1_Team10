@@ -29,6 +29,7 @@ usersRouter.post('/get-user-role', async (req, resp, next) => {
   const queryCaretakerResult = await pool
     .query(queryFromCaretaker, values)
     .catch(next);
+
   const isOwner = queryOwnsResult.rows.length > 0;
   const isCaretaker = queryCaretakerResult.rows.length > 0;
 

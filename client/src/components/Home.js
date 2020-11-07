@@ -47,6 +47,7 @@ const Home = (_props) => {
       )
         return;
       dispatchUpdateUserRole(userRole);
+      console.log(userRole);
     };
 
     try {
@@ -55,6 +56,7 @@ const Home = (_props) => {
       console.error(exception.data.response.error);
     }
   }, [stateIsAuthenticated, dispatchUpdateUserRole, stateEmailAddr, stateUserIsOwner, stateUserIsSitter]);
+
 
   if (!stateIsAuthenticated) {
     return <Login />;
