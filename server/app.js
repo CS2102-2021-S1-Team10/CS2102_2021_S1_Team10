@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const loginRouter = require('./controllers/login');
 const userRouter = require('./controllers/user');
+const adminLoginRouter = require('./controllers/adminlogin');
 const app = express();
 
 
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (_req, resp) => resp.json('Hello! This is the backend for PCS'));
 app.use('/api/login', loginRouter);
 app.use('/api/user', userRouter);
+app.use('/api/admin-login', adminLoginRouter);
 
  
 app.use((error, _req, resp, _next) => {

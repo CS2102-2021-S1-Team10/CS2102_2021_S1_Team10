@@ -8,10 +8,12 @@ import * as authReducer from '../store/reducers/auth_reducer';
 import * as userRoleReducer from '../store/reducers/user_role_reducer';
 import * as userPetsReducer from '../store/reducers/user_pets_reducer';
 import Auth from '../utils/auth';
+import AdminAuth from '../utils/adminAuth';
 
 
 
 const auth = new Auth();
+const adminAuth = new AdminAuth();
 
 const ContextState = () => {
   const [stateReducer1, dispatchReducer1] = useReducer(
@@ -80,7 +82,9 @@ const ContextState = () => {
           stateUserPets: stateUserPetsReducer.stateUserPets,
           dispatchUpdateUserPets: (allPets) => updateUserPets(allPets),
 
-          authObj: auth
+          authObj: auth,
+          adminAuthObj: adminAuth
+
         }}
       > 
         <Routes />
