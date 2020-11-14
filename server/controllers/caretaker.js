@@ -38,7 +38,7 @@ caretakerRouter.post('/accept-bid', async (req, resp, next) => {
 });
 
 
-petOwnerRouter.post('/update-careTaker-profile', async (req, resp, next) => {
+caretakerRouter.post('/update-careTaker-profile', async (req, resp, next) => {
   const body = req.body;
   const {
    firstName,
@@ -59,6 +59,25 @@ petOwnerRouter.post('/update-careTaker-profile', async (req, resp, next) => {
     return resp.status(500).json('An error occurred. Unable to update profile.');
   }
 });
+
+caretakerRouter.post('/get-user-profile', async (req, resp, next) => {
+  const body = req.body;
+  const {
+   emailAddr
+  } = body.info;
+  const queryValues = [emailAddr];
+
+  const query = `SELECT firstName,lastName, to_char(DOB, 'DD-Mon-YYYY'),homeAddr,postalCode
+  FROM PCSUser WHERE emailAddr = $1`;
+  try {
+    const queryRes = await pool.query(query, queryValues);
+    return resp.json(queryRes.rows);
+  } catch (error) {
+    return resp.status(500).json('An error occurred. Unable to update profile.');
+  }
+});
+
+
 
 
 module.exports = caretakerRouter;
