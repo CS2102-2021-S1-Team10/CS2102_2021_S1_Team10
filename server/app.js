@@ -7,6 +7,7 @@ const loginRouter = require('./controllers/login');
 const userRouter = require('./controllers/user');
 const adminLoginRouter = require('./controllers/adminlogin');
 const caretakerRouter = require('./controllers/caretaker');
+const petOwnerRouter = require('./controllers/petOwner');
 const app = express();
 
 
@@ -21,6 +22,7 @@ app.use('/api/login', loginRouter);
 app.use('/api/user', userRouter);
 app.use('/api/admin-login', adminLoginRouter);
 app.use('/api/caretaker', caretakerRouter);
+app.use('/api/pet-owner', petOwnerRouter);
 
  
 

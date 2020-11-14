@@ -1,41 +1,41 @@
-const caretakerRouter = require('express').Router();
+const petOwnerRouter = require('express').Router();
 const pool = require('../db');
 
-caretakerRouter.get(
-  '/get-all-caretakers-availability',
-  async (req, resp, next) => {
-    const query = `SELECT u.firstName, u.lastName, c.avgrating, a.serviceType, a.serviceDescription, a.dailyPrice, a.startDate, a.endDate, a.emailAddr
-  FROM Availability a INNER JOIN PCSUser u ON 
-    a.emailAddr = u.emailAddr JOIN CareTaker c ON 
-    c.emailAddr = a.emailAddr`;
-
-    try {
-      const queryRes = await pool.query(query);
-      const rows = queryRes.rows;
-      return resp.json(rows);
-    } catch (exception) {
-      return resp.status(500).json({
-        error: "Unable to fetch caretakers' schedules"
-      });
-    }
-  }
-);
-
-caretakerRouter.post('/accept-bid', async (req, resp, next) => {
-  const body = req.body;
-  const { poEmail, ctEmail, startDate, endDate, petName } = body.info;
-  const queryValues = [poEmail, ctEmail, startDate, endDate, petName];
-  const query = `
-  UPDATE Bids
-  SET success = 1
-  WHERE poemail = $1 AND ctemail = $2 AND startDate = $3 AND endDate = $4 AND petName = $5;`;
+petOwnerRouter.post('/get-all-past-bids', async (req, resp, next) => {
+  const emailAddr = req.body.petOwnerEmailAddr;
+  const queryValues = [emailAddr];
+  const query = `SELECT b.petName, CONCAT (u.FirstName, ' ', u.lastName) AS "caretaker Name", b.review, b.rating,
+  CASE
+    WHEN b.transportmethod = 1 THEN 'Pet Deliver'
+    WHEN b.transportmethod = 2 THEN 'Care Taker Pick Up'
+    ELSE 'Transfer through the physical building of PCS'
+  END AS transportmethod,
+  CASE
+   WHEN b.success = 1 THEN 'Successful'
+   ELSE 'Unsuccessful'
+  END AS success, b.totalCost, b.startDate, b.endDate 
+  FROM Bids b INNER JOIN PCSUser u ON b.ctemail = u.emailAddr where poemail = $1`;
   try {
-    await pool.query(query, queryValues);
-    resp.status(200).end();
+    const queryRes = await pool.query(query, queryValues);
+    return resp.json(queryRes.rows);
   } catch (error) {
-    return resp.status(500).json("An error occurred. Unable to accept bid.");
+    return resp.status(500).json('An error occurred. Unable get past bids.');
   }
 });
 
+petOwnerRouter.post('/make-bid', async (req, resp, next) => {
+  const body = req.body;
+  const {
+    poEmail,
+    ctEmail,
+    startDate,
+    endDate,
+    petName,
+    serviceType,
+    totalCost,
+    petSlotsLeft
+  } = body.info;
+  const queryValues = [poEmail, ctEmail, startDate, endDate, petName];
+});
 
 module.exports = petOwnerRouter;

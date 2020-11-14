@@ -31,7 +31,7 @@ caretakerRouter.post('/accept-bid', async (req, resp, next) => {
   WHERE poemail = $1 AND ctemail = $2 AND startDate = $3 AND endDate = $4 AND petName = $5;`;
   try {
     await pool.query(query, queryValues);
-    resp.status(200).end();
+    return resp.status(200).end();
   } catch (error) {
     return resp.status(500).json("An error occurred. Unable to accept bid.");
   }
