@@ -6,4 +6,10 @@ const getUserPets = async emailAddr => {
   return resp.data;
 };
 
-export default { getUserPets };
+
+const getUserProfile = async emailAddr => {
+  const resp = await axios.post(`${BASE_URL}/get-user-profile`, {emailAddr});
+  return resp.data;
+};
+
+export default { getUserPets, getUserProfile };

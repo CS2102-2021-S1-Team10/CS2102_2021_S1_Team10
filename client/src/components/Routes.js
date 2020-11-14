@@ -14,21 +14,7 @@ import FirstSignUpDecideRole from './FirstSignUpDecideRole';
 import CreateProfileFormOwner from './create_profile/CreateProfileFormOwner';
 import BookingWidget from './booking/BookingWidget';
 import CreateProfileFormCaretaker from './create_profile/CreateProfileFormCaretaker';
-
-
-
-
-const PrivateRoute = ({ component: PrivateComponent, auth }) => (
-  <Route
-    render={(props) =>
-      auth === true ? (
-        <PrivateComponent auth={auth} {...props} />
-      ) : (
-        <Redirect to={{ pathname: '/' }} />
-      )
-    }
-  />
-);
+import UserProfile from './UserProfile';
 
 const Routes = () => {
   const context = useContext(Context);
@@ -54,12 +40,9 @@ const Routes = () => {
 
             <Route path="/widget" component={BookingWidget} />
             <Route path="/admin-login" component={AdminLogin} />
+            
+            <Route path="/profile" component={UserProfile} />
 
-            <PrivateRoute
-              path="/privateroute"
-              auth={context.stateIsAuthenticated}
-              component={PrivateComponent}
-            />
           </Switch>
         </div>
       </Router>
