@@ -15,14 +15,7 @@ const PetForm = (props) => {
     setPetGender,
     setWeight,
     setPetBirthday,
-    setSpecialRequirements,
-    petName,
-    breed,
-    petType,
-    petGender,
-    weight,
-    petBirthday,
-    specialRequirements
+    setSpecialRequirements
   } = props;
 
   const [type,setTypeValue] = useState("Dog");
@@ -46,7 +39,6 @@ const PetForm = (props) => {
             fullWidth
             autoComplete="pet-name"
             onChange={(e) => setPetName(e.target.value)}
-            value = {petName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -58,7 +50,6 @@ const PetForm = (props) => {
             fullWidth
             autoComplete="breed"
             onChange={(e) => setBreed(e.target.value)}
-            value = {breed}
           />
         </Grid>
         <Grid item xs={12} sm={3}>
@@ -71,7 +62,7 @@ const PetForm = (props) => {
             onChange={handleTypeChange}
             displayEmpty
             fullWidth
-            value={petType}
+            value={type}
           >
             <MenuItem value="Dog">Dog</MenuItem>
             <MenuItem value="Cat">Cat</MenuItem>
@@ -89,7 +80,7 @@ const PetForm = (props) => {
             onChange={handleGenderChange}
             displayEmpty
             fullWidth
-            value={petGender}
+            value={gender}
           >
             <MenuItem value="M">Male</MenuItem>
             <MenuItem value="F">Female</MenuItem>
@@ -105,7 +96,6 @@ const PetForm = (props) => {
               shrink: true
             }}
             onChange={(e) => setWeight(e.target.value)}
-            value = {weight}
           />
         </Grid>
         <Grid item xs={12} sm={3}>
@@ -119,7 +109,6 @@ const PetForm = (props) => {
               shrink: true
             }}
             onChange={(e) => setPetBirthday(e.target.value)}
-            value = {petBirthday}
           />
         </Grid>
         <Grid item sm={12}>
@@ -132,7 +121,6 @@ const PetForm = (props) => {
             variant="outlined"
             fullWidth
             onChange={(e) => setSpecialRequirements(e.target.value)}
-            value = {specialRequirements}
           />
         </Grid>
       </Grid>

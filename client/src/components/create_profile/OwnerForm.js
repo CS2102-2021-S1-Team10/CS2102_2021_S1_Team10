@@ -10,12 +10,7 @@ const OwnerForm = (props) => {
     setLastName,
     setAddress,
     setPostalCode,
-    setBirthday,
-    firstName,
-    lastName,
-    address,
-    postalCode,
-    birthday
+    setBirthday
   } = props;
   return (
     <React.Fragment>
@@ -32,7 +27,6 @@ const OwnerForm = (props) => {
             fullWidth
             autoComplete="given-name"
             onChange={(e) => setFirstName(e.target.value)}
-            value = {firstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -44,7 +38,6 @@ const OwnerForm = (props) => {
             fullWidth
             autoComplete="family-name"
             onChange={(e) => setLastName(e.target.value)}
-            value = {lastName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -56,7 +49,6 @@ const OwnerForm = (props) => {
             fullWidth
             autoComplete="address"
             onChange={(e) => setAddress(e.target.value)}
-            value = {address}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -68,7 +60,6 @@ const OwnerForm = (props) => {
             fullWidth
             autoComplete="postal-code"
             onChange={(e) => setPostalCode(e.target.value)}
-            value = {postalCode}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -82,7 +73,6 @@ const OwnerForm = (props) => {
               shrink: true
             }}
             onChange={(e) => setBirthday(e.target.value)}
-            value = {birthday}
           />
         </Grid>
       </Grid>

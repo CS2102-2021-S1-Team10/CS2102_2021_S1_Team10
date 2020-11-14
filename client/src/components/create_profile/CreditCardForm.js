@@ -5,14 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 
 const CreditCardForm = (props) => {
-  const { setCreditCard,
-          setCVC,
-          setExpiryDate,
-          creditCardNum,
-          CVC,
-          expiryDate
-        } = props;
-  
+  const { setCreditCard, setCVC, setExpiryDate } = props;
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -28,7 +21,6 @@ const CreditCardForm = (props) => {
             fullWidth
             autoComplete="credit-card-number"
             onChange={(e) => setCreditCard(e.target.value)}
-            value = {creditCardNum}
           />
         </Grid>
 
@@ -43,7 +35,6 @@ const CreditCardForm = (props) => {
               shrink: true
             }}
             onChange={(e) => setExpiryDate(e.target.value)}
-            value = {expiryDate}
           />
         </Grid>
 
@@ -56,7 +47,6 @@ const CreditCardForm = (props) => {
             fullWidth
             autoComplete="cvc"
             onChange={(e) => setCVC(e.target.value)}
-            value = {CVC}
           />
         </Grid>
       </Grid>
