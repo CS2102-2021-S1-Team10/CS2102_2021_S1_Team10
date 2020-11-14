@@ -87,6 +87,11 @@ const CreateProfileFormOwner = (_props) => {
             setAddress={setAddress}
             setPostalCode={setPostalCode}
             setBirthday={setBirthday}
+            firstName = {firstName}
+            lastName = {lastName}
+            address = {address}
+            postalCode = {postalCode}
+            birthday = {birthday}
           />
         );
 
@@ -96,6 +101,9 @@ const CreateProfileFormOwner = (_props) => {
             setCreditCard={setCreditCardNum}
             setCVC={setCVC}
             setExpiryDate={setExpiryDate}
+            creditCardNum = {creditCardNum}
+            CVC = {CVC}
+            expiryDate = {expiryDate}
           />
         );
       case 2:
@@ -108,6 +116,13 @@ const CreateProfileFormOwner = (_props) => {
             setWeight={setWeight}
             setPetBirthday={setPetBirthday}
             setSpecialRequirements={setSpecialRequirements}
+            petName={petName}
+            breed = {breed}
+            petType = {petType}
+            petGender = {petGender}
+            weight = {weight}
+            petBirthday = {petBirthday}
+            specialRequirements = {specialRequirements}
           />
         );
       default:
