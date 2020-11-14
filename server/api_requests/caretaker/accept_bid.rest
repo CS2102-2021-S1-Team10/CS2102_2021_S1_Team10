@@ -1,0 +1,12 @@
+POST http://localhost:5000/api/caretaker/accept-bid
+Content-Type: application/json
+
+{
+"info": {
+  "poEmail": "vcalderwoodd@bing.com",
+  "ctEmail": "ymcmeekin0@cyberchimps.com",
+  "startDate": "2020-10-20",
+  "endDate": "2020-10-20",
+  "petName": "Lucy"
+}
+}

@@ -6,6 +6,7 @@ const logger = require('morgan');
 const loginRouter = require('./controllers/login');
 const userRouter = require('./controllers/user');
 const adminLoginRouter = require('./controllers/adminlogin');
+const caretakerRouter = require('./controllers/caretaker');
 const app = express();
 
 
@@ -19,6 +20,7 @@ app.get('/', (_req, resp) => resp.json('Hello! This is the backend for PCS'));
 app.use('/api/login', loginRouter);
 app.use('/api/user', userRouter);
 app.use('/api/admin-login', adminLoginRouter);
+app.use('/api/caretaker', caretakerRouter);
 
  
 
