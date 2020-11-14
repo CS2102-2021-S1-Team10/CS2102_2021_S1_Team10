@@ -41,7 +41,7 @@ usersRouter.post('/get-user-role', async (req, resp, next) => {
     };
   
     return resp.json(userRole);
-  } catch (e) {
+  } catch (error) {
     return resp.status(500).json({ error: error.toString() });
   }
 });
@@ -66,8 +66,8 @@ usersRouter.post('/add-owner-role', async (req, resp, next) => {
   ];
   const queryUpdatePCSUser = `UPDATE PCSUser SET firstName = $1, lastName = $2, DOB = $3, homeAddr = $4, postalCode = $5 WHERE emailAddr = $6`;
   try {
-    await pool.query(queryUpdatePCSUser, valuesForUpdatingPCSUser).catch(next);
-  } catch (e) {
+    await pool.query(queryUpdatePCSUser, valuesForUpdatingPCSUser)
+  } catch (error) {
     return resp.status(500).json({ error: error.toString() });
   }
   
@@ -85,7 +85,7 @@ usersRouter.post('/add-owner-role', async (req, resp, next) => {
   const queryInsertPetOwner = `INSERT INTO PetOwner VALUES ($1, $2, $3, $4)`;
   try {
     await pool.query(queryInsertPetOwner, valuesForInsertPetOwner)
-  } catch (e) {
+  } catch (error) {
     return resp.status(500).json({ error: error.toString() });
   }
 
@@ -110,8 +110,8 @@ usersRouter.post('/add-owner-role', async (req, resp, next) => {
   ];
   const queryInsertOwns = `INSERT INTO Owns Values ($1, $2, $3, $4, $5, $6, $7, $8)`;
   try {
-    await pool.query(queryInsertOwns, valuesForInsertOwns).catch(next);
-  } catch (e) {
+    await pool.query(queryInsertOwns, valuesForInsertOwns);
+  } catch (error) {
     return resp.status(500).json({ error: error.toString() });
   }
   
@@ -123,7 +123,6 @@ usersRouter.post('/get-user-pets', async (req, resp, next) => {
   const queryFromOwns = `SELECT petName, petType, specialRequirements FROM Owns WHERE emailAddr = $1`;
   const queryOwnsResult = await pool
     .query(queryFromOwns, valuesForQuery)
-    .catch(next);
 
   const allPets = [];
   for (const row of queryOwnsResult.rows) {
