@@ -33,9 +33,61 @@ petOwnerRouter.post('/make-bid', async (req, resp, next) => {
     petName,
     serviceType,
     totalCost,
-    petSlotsLeft
+    petSlotsLeft,
+    transportMethod,
+    paymentType
   } = body.info;
-  const queryValues = [poEmail, ctEmail, startDate, endDate, petName];
+  const queryValues = [transportMethod, paymentType, poEmail, petName, ctEmail, serviceType, totalCost, startDate, endDate, petSlotsLeft];
+
+  const query = `INSERT INTO BIDS VALUES(NULL, NULL, $1, 0, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
+
+  try {
+    const queryRes = await pool.query(query, queryValues);
+    return resp.json(queryRes.rows);
+  } catch (error) {
+    return resp.status(500).json('An error occurred. Unable to make bid.');
+  }
 });
+
+
+petOwnerRouter.post('/update-petOwner-profile', async (req, resp, next) => {
+  const body = req.body;
+  const {
+   firstName,
+   lastName,
+   DOB,
+   homeAddr, 
+   postalCode,
+   emailAddr
+  } = body.info;
+  const queryValues = [firstName,lastName,DOB,homeAddr,postalCode,emailAddr];
+
+  const query = `UPDATE PCSUser SET firstName = $1, lastName = $2, DOB = $3, homeAddr = $4, postalCode = $5 WHERE emailAddr = $6; `;
+
+  try {
+    const queryRes = await pool.query(query, queryValues);
+    return resp.json(queryRes.rows);
+  } catch (error) {
+    return resp.status(500).json('An error occurred. Unable to update profile.');
+  }
+});
+
+petOwnerRouter.post('/get-user-profile', async (req, resp, next) => {
+  const body = req.body;
+  const {
+   emailAddr
+  } = body.info;
+  const queryValues = [emailAddr];
+
+  const query = `SELECT firstName,lastName, to_char(DOB, 'DD-Mon-YYYY'),homeAddr,postalCode
+  FROM PCSUser WHERE emailAddr = $1`;
+  try {
+    const queryRes = await pool.query(query, queryValues);
+    return resp.json(queryRes.rows);
+  } catch (error) {
+    return resp.status(500).json('An error occurred. Unable to update profile.');
+  }
+});
+
 
 module.exports = petOwnerRouter;

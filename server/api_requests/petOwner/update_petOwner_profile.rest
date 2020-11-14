@@ -1,0 +1,13 @@
+POST http://localhost:5000/api/pet-owner/update-petOwner-profile
+Content-Type: application/json
+
+{ 
+"info": {
+   "firstName": "For",
+   "lastName": "Testing",
+   "DOB": "23-11-1998",
+   "homeAddr": "123 Happy Ville",
+   "postalCode": "123456", 
+   "emailAddr": "testme@gmail.com"
+}
+}

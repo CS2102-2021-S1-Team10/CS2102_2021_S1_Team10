@@ -1,0 +1,8 @@
+POST http://localhost:5000/api/pet-owner/get-user-profile
+Content-Type: application/json
+
+{ 
+"info": {
+   "emailAddr": "testme@gmail.com"
+}
+}

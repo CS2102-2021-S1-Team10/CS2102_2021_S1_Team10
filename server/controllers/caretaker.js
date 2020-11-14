@@ -38,5 +38,27 @@ caretakerRouter.post('/accept-bid', async (req, resp, next) => {
 });
 
 
+petOwnerRouter.post('/update-careTaker-profile', async (req, resp, next) => {
+  const body = req.body;
+  const {
+   firstName,
+   lastName,
+   DOB,
+   homeAddr, 
+   postalCode,
+   emailAddr
+  } = body.info;
+  const queryValues = [firstName,lastName,DOB,homeAddr,postalCode,emailAddr];
+
+  const query = `UPDATE PCSUser SET firstName = $1, lastName = $2, DOB = $3, homeAddr = $4, postalCode = $5 WHERE emailAddr = $6; `;
+
+  try {
+    const queryRes = await pool.query(query, queryValues);
+    return resp.json(queryRes.rows);
+  } catch (error) {
+    return resp.status(500).json('An error occurred. Unable to update profile.');
+  }
+});
+
 
 module.exports = caretakerRouter;
