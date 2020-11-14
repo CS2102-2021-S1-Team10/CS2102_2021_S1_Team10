@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -17,6 +17,13 @@ const PetForm = (props) => {
     setPetBirthday,
     setSpecialRequirements
   } = props;
+
+  const [type,setTypeValue] = useState("Dog");
+  const [gender,setGenderValue] = useState("M");
+  const handleTypeChange  = e => {setTypeValue(e.target.value);setPetType(e.target.value)};
+  const handleGenderChange = e => {setGenderValue(e.target.value);setPetGender(e.target.value)};
+
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -52,10 +59,10 @@ const PetForm = (props) => {
           <Select
             labelId="pet-type"
             id="pet-type"
-            onChange={(e) => setPetType(e.target.value)}
+            onChange={handleTypeChange}
             displayEmpty
             fullWidth
-            value="Dog"
+            value={type}
           >
             <MenuItem value="Dog">Dog</MenuItem>
             <MenuItem value="Cat">Cat</MenuItem>
@@ -70,10 +77,10 @@ const PetForm = (props) => {
           <Select
             labelId="gender"
             id="gender"
-            onChange={(e) => setPetGender(e.target.value)}
+            onChange={handleGenderChange}
             displayEmpty
             fullWidth
-            value="M"
+            value={gender}
           >
             <MenuItem value="M">Male</MenuItem>
             <MenuItem value="F">Female</MenuItem>
