@@ -9,5 +9,8 @@ Content-Type: application/json
   "address": "111 Adams Avenue",
   "postalCode": "234567"
 },
+"creditCard": {
+
+},
 "emailAddr": "dummy@gmail.com"
 }

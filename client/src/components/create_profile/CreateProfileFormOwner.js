@@ -128,15 +128,23 @@ const CreateProfileFormOwner = (_props) => {
         petBirthday,
         specialRequirements
       };
-      const creditCard = {creditCardNum, CVC, expiryDate};
-    
-      const updatedUserRoleObj = await userRoleService.addOwnerRole(
-        owner,
-        creditCard,
-        pet,
-        context.stateEmailAddr
-      );
+      const creditCard = { creditCardNum, CVC, expiryDate };
+
+      try {
+        await userRoleService.addOwnerRole(
+          owner,
+          creditCard,
+          pet,
+          context.stateEmailAddr
+        );
+      } catch (exception) {
+        console.log(exception);
+      }
+
+      const updatedUserRoleObj = await userRoleService.getUserRole();
+
       context.dispatchUpdateUserRole(updatedUserRoleObj);
+      history.push('/');
     } else {
       setActiveStep(activeStep + 1);
     }
@@ -146,7 +154,6 @@ const CreateProfileFormOwner = (_props) => {
     setActiveStep(activeStep - 1);
   };
 
-  
   return (
     <React.Fragment>
       <CssBaseline />
@@ -178,7 +185,7 @@ const CreateProfileFormOwner = (_props) => {
                   Back
                 </Button>
               )}
-  
+
               <Button
                 variant="contained"
                 color="primary"

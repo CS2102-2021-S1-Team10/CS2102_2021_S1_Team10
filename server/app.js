@@ -21,8 +21,5 @@ app.use('/api/user', userRouter);
 app.use('/api/admin-login', adminLoginRouter);
 
  
-app.use((error, _req, resp, _next) => {
-  return resp.status(500).json({ error: error.toString() });
-});
 
 module.exports = app;
