@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import CaretakerForm from './CaretakerForm';
 import userRoleService from '../../services/userRoleService';
+import history from '../../utils/history'; 
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -86,8 +87,22 @@ const CreateProfileFormCaretaker = (_props) => {
     // submit form and update db, then update context state
     if (activeStep + 1 === 1) {
       const caretaker = {firstName, lastName, address, postalCode, birthday};
-      const updatedUserRoleObj = await userRoleService.addCaretakerRole(caretaker, context.stateEmailAddr);
+
+      try {
+        await userRoleService.addCaretakerRole(
+          caretaker, 
+          context.stateEmailAddr
+          );
+
+      } catch (exception) {
+        console.log(exception);
+      }
+ 
+      const updatedUserRoleObj = await userRoleService.getUserRole();
+ 
       context.dispatchUpdateUserRole(updatedUserRoleObj);
+      history.push('/');
+	  
     } else {
       setActiveStep(activeStep);
     }

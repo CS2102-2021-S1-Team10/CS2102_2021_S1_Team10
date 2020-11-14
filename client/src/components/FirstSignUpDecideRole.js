@@ -53,7 +53,7 @@ const FirstSignUpDecideRole = () => {
           Pet Owner
         </button>
 
-        <button onClick={() => history.push('/create-profile-sitter')} 
+        <button onClick={() => history.push('/create-profile-caretaker')} 
           className={classes.btn}
           style={{background: '#ff8181'}}>
           Pet Sitter

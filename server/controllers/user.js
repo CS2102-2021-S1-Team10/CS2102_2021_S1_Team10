@@ -87,8 +87,9 @@ usersRouter.post('/add-owner-role', async (req, resp, next) => {
     await pool.query(queryInsertPetOwner, valuesForInsertPetOwner)
   } catch (error) {
     return resp.status(500).json({ error: error.toString() });
-  }
+  }																						
 
+															   
   const {
     petName,
     breed,
@@ -117,6 +118,42 @@ usersRouter.post('/add-owner-role', async (req, resp, next) => {
   
   return resp.status(200).end();
 });
+
+usersRouter.post('/add-caretaker-role',async (req, resp, next) => {
+  const {caretaker, emailAddr} = req.body;
+  const {
+    firstName,
+    lastName,
+    address: homeAddr,
+    postalCode,
+    birthday:DOB
+  } = caretaker;
+
+  const valuesForUpdatingPCSUser = [
+    firstName,
+    lastName,
+    DOB,
+    homeAddr,
+    postalCode,
+    emailAddr
+		
+						
+				
+  ];
+  const valuesForInsertingCaretaker = [emailAddr];
+
+  const queryUpdatePCSUser = `UPDATE PCSUser SET firstName = $1, lastName = $2, DOB = $3, homeAddr = $4, postalCode = $5 WHERE emailAddr = $6`;
+  const queryInsertCaretaker = `INSERT INTO Caretaker(emailAddr) VALUES ($1)`;
+  try {
+    await pool.query(queryUpdatePCSUser, valuesForUpdatingPCSUser);
+    await pool.query(queryInsertCaretaker, valuesForInsertingCaretaker);
+  } catch(error) {
+    return resp.status(500).json({ error: error.toString() });
+  }
+  
+  return resp.status(200).end();
+
+});	
 
 usersRouter.post('/get-user-pets', async (req, resp, next) => {
   const valuesForQuery = [req.body.emailAddr];

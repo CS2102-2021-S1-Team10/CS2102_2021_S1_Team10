@@ -1,0 +1,13 @@
+POST http://localhost:5000/api/user/add-caretaker-role 
+Content-Type: application/json
+
+{
+"caretaker": {
+  "firstName": "User1",
+  "lastName": "A",
+  "birthday": "01-10-2000",
+  "address": "111 Adams Avenue",
+  "postalCode": "234567"
+},
+"emailAddr": "trisha@gmail.com"
+}
